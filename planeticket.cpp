@@ -114,10 +114,16 @@ class memberList{
             cout << "Telephone number: ";
             cin >> Tel;
             cout << "==============================" << endl;
-                while(check_NumberTH(thai_number) == true){
+                while(check_NumberTH(thai_number) == true || Tel.length() != 10){
                     cout << "!!! Warring !!!\n";
-                    cout << "Identification: ";
-                    cin >> thai_number;
+                    if(check_NumberTH(thai_number) == true || thai_number.length() != 13){
+                        cout << "Identification: ";
+                        cin >> thai_number;                        
+                    }
+                    if(Tel.length() != 10){
+                        cout << "Telephone number: ";
+                        cin >> Tel;
+                    }
                 }
             do{
                 cout << "========== Sign up ===========" << endl;
@@ -127,7 +133,7 @@ class memberList{
                 cin >> pass;
                 cout << "==============================" << endl;
                 //check
-            }while(check(id,pass) != false);
+            }while(check(id,pass) != false || id.length() < 8 || pass.length() <= 7 || pass.length() >10);
             //write file
             ofstream myfile;
 			myfile.open("Member.txt",std::ios::app);//writeFirstname to file
