@@ -39,7 +39,7 @@ class memberList{
             head = NULL;
             tail = NULL;
             count = 0;
-            read_data();
+            //read_data();
         }
         void login(){
 
@@ -133,7 +133,7 @@ class memberList{
                 cin >> pass;
                 cout << "==============================" << endl;
                 //check
-            }while(check(id,pass) != false || id.length() < 8 || pass.length() <= 7 || pass.length() >10);
+            }while(check(id,pass) != false || id.length() != 8 || pass.length() != 10 );
             //write file
             ofstream myfile;
 			myfile.open("Member.txt",std::ios::app);//writeFirstname to file
@@ -220,6 +220,7 @@ class TicketList{
 };
 int main(){
 	memberList *obj = new memberList;
+
 	string PassengerName,username,password;
 	string Form,to;
 	string Seat;
