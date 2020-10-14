@@ -17,6 +17,8 @@ using namespace std;
 class control{
     private:
         class member{
+            private:
+                string name;
             public:
                 string Name,Tel,Id,Pass,Number_th;
                 member *link;
