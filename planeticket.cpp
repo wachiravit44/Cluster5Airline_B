@@ -14,11 +14,7 @@
 #include <cstddef>  
 #include <ctime>
 using namespace std;
-class control{
-    private:
-        class member{
-            private:
-                string name;
+ class member{
             public:
                 string Name,Tel,Id,Pass,Number_th;
                 member *link;
@@ -33,11 +29,13 @@ class control{
                     plink = NULL;
                 } 
         };
+class memberList{
+    private:
         member *head;
         member *tail;
         int count;
     public:
-        control(){
+        memberList(){
             head = NULL;
             tail = NULL;
             count = 0;
@@ -93,6 +91,16 @@ class control{
             }
             return false;
         }
+        bool Checkpass(string username,string pass){
+		member *temp = head;
+		while(temp !=NULL){
+			if(temp->Pass==pass &&  temp->Id == username){
+				return true;
+				break;
+			}
+				temp = temp->link;
+		}//while
+	}	
         void Register(){
             string name,thai_number,Tel,id,pass;
             cout << "=========== Register ==========" << endl;
@@ -205,7 +213,7 @@ class TicketList{
 		}
 };
 int main(){
-	control *obj = new control;
+	memberList *obj = new memberList;
 	string PassengerName;
 	string Form,to;
 	string Seat;
