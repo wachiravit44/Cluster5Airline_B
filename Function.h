@@ -1,4 +1,5 @@
 #include <iostream>
+#include <conio.h>
 using namespace std;
 
 void readfile(string filename){
@@ -10,4 +11,16 @@ void readfile(string filename){
 			cout << filein << endl;
 		}
 		myfile.close();
+}
+
+string Hide_password(){
+    	char ch;
+        string password;				
+        ch = _getch();
+		while(ch != 13){//character 13 is enter
+			password.push_back(ch);
+			cout << '*';
+			ch = _getch();
+		}	
+        return password;
 }
