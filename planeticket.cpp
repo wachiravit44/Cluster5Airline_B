@@ -1,19 +1,9 @@
 /************************************************************************/
 /* Program Assignment: Planeticket										*/
-/* Student ID:	       62160088											*/
-/* Student Name:       thanisron thumsawanit							*/
-/* Date:	           9/9/2653     									*/
-/* Description:        description 										*/
+/* Team : B																*/
+/* Date : 16/10/2653     												*/
 /************************************************************************/
-#include <iostream> 
-#include <fstream> 
-#include <string>
-#include <iomanip> 
-#include <cstdlib>
-#include <sstream>
-#include <cstddef>  
-#include <ctime>
-using namespace std;
+#include"All_include.h"
  class member{
             public:
                 string Name,Tel,Id,Pass,Number_th;
@@ -39,7 +29,7 @@ class memberList{
             head = NULL;
             tail = NULL;
             count = 0;
-            //read_data();
+            read_data();
         }
         void login(){
 
@@ -92,15 +82,16 @@ class memberList{
             return false;
         }
         bool Checkpass(string username,string pass){
-		member *temp = head;
-		while(temp !=NULL){
-			if(temp->Pass==pass &&  temp->Id == username){
-				return true;
-				break;
-			}
-				temp = temp->link;
-		}//while
-	}	
+			member *temp = head;
+			while(temp !=NULL){
+				if(temp->Pass==pass &&  temp->Id == username){
+					return true;
+					//break;
+				}
+					temp = temp->link;
+			}//while
+			return false;
+		}	
         void Register(){
             string name,thai_number,Tel,id,pass;
             cout << "=========== Register ==========" << endl;
@@ -218,27 +209,17 @@ class TicketList{
 			}		
 		}
 };
+
 int main(){
 	memberList *obj = new memberList;
-
+	//obj->read_data();
 	string PassengerName,username,password;
 	string Form,to;
 	string Seat;
 	float Date;
 	string Class;
 	int menu,YN,yn,choice,choice1,choice2;
-
-cout<<"    __  _"<<endl;
-cout<<"    <>`/ |"<<endl;
-cout<<"     <>_`!"<<endl;
-cout<<"     / ,' `-.__________________"<<endl;
-cout<<"    '-'>_____                LI`-."<<endl;
-cout<<"       <____()-=O=O=O=O=O=[]====--)"<<endl;
-cout<<"         `.___ ,-----,_______...-'"<<endl;
-cout<<"              /    .'"<<endl;
-cout<<"             /   .'"<<endl;
-cout<<"            /  .'"<<endl;
-cout<<"            `-'"<<endl;
+	readfile("First_page");
     time_t now = time(0);
     tm *ltm = localtime(&now);
     cout << "Year:" << 1900 + ltm->tm_year << endl;
@@ -263,41 +244,38 @@ cout<<"            `-'"<<endl;
 			cout <<"Enter=> ";
 			cin >> yn;
 			switch(yn){
-				case 1:
-				login:cout << "==== Airplane ticket booking ====" << endl;
-				cout << "Enter Username: ";
-				cin>>username;
-				cout << "Enter Password: "; 	
-				cin>>password;
-				cout << "==================" << endl;
-					if(username.length()!=8 && password.length()!= 10){
-						cout<<"!!!!!Invalid Username or Password!!!!"<<endl;
-						goto Airplane;
-					}
+				case 1:{
+					login:cout << "==== Airplane ticket booking ====" << endl;
+					cout << "Enter Username: ";
+					cin>>username;
+					cout << "Enter Password: "; 	
+					cin>>password;
+					cout << "==================" << endl;
 					if(obj->Checkpass(username,password)==true){
 				
-		booking:cout<<"====== Airplane Ticket ======="<<endl;
-				cout<<"1.booking";
-				cout<<"2.Exit"<<endl;
-				cin >> choice;
-				switch (choice){
-				case '1':
-					cout <<"1.booking";
-				goto booking;
-				break;
-				case '2':
-				goto Airplane;
-				break;
+						booking:
+						cout<<"====== Airplane Ticket ======="<<endl;
+						cout<<"1.booking"<<endl;
+						cout<<"2.Exit"<<endl;
+						cin >> choice;
+						switch (choice){
+							case '1':
+								cout <<"1.booking";
+							goto booking;
+							break;
+							case '2':
+							goto Airplane;
+							break;
+						}
+					}else if(obj->Checkpass(username,password) != true){
+						
+						cout<<"!!!!!Invalid Username or Password!!!! "<<endl;
+						goto Airplane;
+					}
+					break;
 				}
-			}else{
-				cout<<"!!!!!Invalid Username or Password!!!!"<<endl;
-				goto Airplane;
 			}
-				break;
-				case 2:
-				break;
-			}
-		break;
+						
 		case 2:
 			cout << "Do you want to login?"<<endl;
 			cout << "1.Yes"<<endl;
@@ -316,25 +294,25 @@ cout<<"            `-'"<<endl;
 						cout<<"!!!!!Invalid Username or Password!!!!"<<endl;
 						goto login2;
 					}
-					if(obj->Checkpass(username,password)==true){
-				
-		booking2:cout<<"====== Airplane Ticket ======="<<endl;
-				cout<<"1.booking";
-				cout<<"2.Exit"<<endl;
-				cin >> choice;
-				switch (choice){
-				case '1':
-					cout <<"1.booking";
-				goto booking;
-				break;
-				case '2':
-				goto Airplane;
-				break;
-				}
-			}else{
-				cout<<"!!!!!Invalid Username or Password!!!!"<<endl;
-				goto login2;
-			}
+					if(obj->Checkpass(username,password) == true){
+						booking2:
+						cout<<"====== Airplane Ticket ======="<<endl;
+						cout<<"1.booking"<<endl;
+						cout<<"2.Exit"<<endl;
+						cin >> choice;
+						switch (choice){
+						case '1':
+							cout <<"1.booking";
+								goto booking;
+								break;
+						case '2':
+								goto Airplane;
+								break;
+						}//switch
+					}else if(obj->Checkpass(username,password) != true){
+						cout<<"!!!!!Invalid Username or Password!!!!"<<endl;
+						goto login2;
+					}
 			
 				break;
 				case 2:
