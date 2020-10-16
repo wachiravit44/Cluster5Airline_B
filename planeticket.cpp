@@ -3,7 +3,7 @@
 /* Team : B																*/
 /* Date : 16/10/2653     												*/
 /************************************************************************/
-#include"All_include.h"
+#include "All_include_in_main.h"
  class member{
             public:
                 string Name,Tel,Id,Pass,Number_th;
@@ -212,7 +212,6 @@ class TicketList{
 
 int main(){
 	memberList *obj = new memberList;
-	//obj->read_data();
 	string PassengerName,username,password;
 	string Form,to;
 	string Seat;
@@ -248,11 +247,11 @@ int main(){
 					login:cout << "==== Airplane ticket booking ====" << endl;
 					cout << "Enter Username: ";
 					cin>>username;
-					cout << "Enter Password: "; 	
-					cin>>password;
-					cout << "==================" << endl;
+					cout << "Enter Password: "; 
+					password = Hide_password();
+					//cin>>password;
+					cout <<endl <<"==================" << endl;
 					if(obj->Checkpass(username,password)==true){
-				
 						booking:
 						cout<<"====== Airplane Ticket ======="<<endl;
 						cout<<"1.booking"<<endl;
@@ -275,7 +274,7 @@ int main(){
 					break;
 				}
 			}
-						
+				break;		
 		case 2:
 			cout << "Do you want to login?"<<endl;
 			cout << "1.Yes"<<endl;
@@ -288,8 +287,8 @@ int main(){
 				cout << "Enter Username: ";
 				cin>>username;
 				cout << "Enter Password: "; 	
-				cin>>password;
-				cout << "==================" << endl;
+				password = Hide_password();	
+				cout << endl <<"==================" << endl;
 				if(username.length()!=8 && password.length()!= 10){
 						cout<<"!!!!!Invalid Username or Password!!!!"<<endl;
 						goto login2;
