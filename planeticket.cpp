@@ -6,6 +6,7 @@
 #include "All_include_in_main.h"
  class member{
             public:
+				//test
                 string Name,Tel,Id,Pass,Number_th;
                 member *link;
                 member *plink;
