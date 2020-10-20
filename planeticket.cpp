@@ -225,9 +225,11 @@ int main(){
     cout << "Year:" << 1900 + ltm->tm_year << endl;
     cout << "Month: "<< 1 + ltm->tm_mon<< endl;
     cout << "Day: "<<  ltm->tm_mday << endl;
-    cout << "Time: "<< 1 + ltm->tm_hour << ":";
-    cout << 1 + ltm->tm_min << ":";
-    cout << 1 + ltm->tm_sec << endl;
+    cout << "Time: "<< 0 + ltm->tm_hour << ":";
+    cout << 0 + ltm->tm_min << ":";
+    cout << 0 + ltm->tm_sec << endl;
+	int a = ltm->tm_sec;
+	cout << a;
 	cout <<"You can only reserve ticket 2 weeks in advance."<<endl;
 	Airplane:cout <<"======Airplane ticket booking======"<<endl;
 	cout <<"1.Book ticket"<<endl;
