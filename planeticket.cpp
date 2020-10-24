@@ -161,15 +161,16 @@ class NodeTicket{
 		string Seat;
 		string Form,To;
 		string Class;
-		float Date;
+		int Date;
 		NodeTicket*link;
 		NodeTicket *plink;
-		NodeTicket(string PName,string Se,string Cl,string F,string T){
+		NodeTicket(string PName,string Cl,string Se,string F,string T,int d){
 			PassengerName = PName;
 			Seat = Se;
 			Class = Cl;
 			Form = F;
 			To = T;
+			Date = d;
 			link = NULL;
 			plink = NULL;
 		}
@@ -188,16 +189,16 @@ class TicketList{
 		}	
 	~TicketList(){
 			for(int i=1;i<count;i++){
-				NodeTicket *tmp = head;
+				NodeTicket *temp = head;
 				head = head->link;
-				delete tmp;
-				tmp = NULL;
+				delete temp;
+				temp = NULL;
 			}
 			head = NULL;
 			tail = NULL;
 		}
-	void Add_ticket(string PassengerName,string Seat,string Form,string To,string Class){
-			NodeTicket *n = new NodeTicket(PassengerName,Seat,Form,To,Class);
+	void Add_ticket(string PassengerName,string Class,string Seat,string Form,string To,int date){
+			NodeTicket *n = new NodeTicket(PassengerName,Class,Seat,Form,To,date);
 			if(head == NULL){
 				head = n;
 				tail = head;
@@ -209,14 +210,34 @@ class TicketList{
 				count++;
 			}		
 		}
+	void saveticket(){
+		NodeTicket *temp = head;
+			ofstream myFile3("ticket.txt",ios::out);
+        	if(myFile3.is_open()){ 
+				while(temp!=NULL){
+					myFile3  << temp->PassengerName <<","<< temp->Class << "," << temp->Seat << ","  << temp->Form <<"," << temp->To <<"," 
+					<< temp->Date << "," << endl;
+					temp = temp->link;
+				}  
+			}	
+	}
+	void showTicket(){
+		NodeTicket *temp = head;
+		while(temp != NULL){	
+				cout << temp->PassengerName <<" "<< temp->Class << " " << temp->Seat << " "  << temp->Form <<" " << temp->To <<" " << temp->Date << endl;
+				temp = temp->link;
+			}
+
+	}
 };
 
 int main(){
 	memberList *obj = new memberList;
+	TicketList *ticket = new TicketList;
 	string PassengerName,username,password;
 	string Form,to;
 	string Seat;
-	float Date;
+	int Date;
 	string Class;
 	int menu,YN,yn,choice,choice1,choice2;
 	readfile("First_page");
@@ -253,17 +274,47 @@ int main(){
 					//cin>>password;
 					cout <<endl <<"==================" << endl;
 					if(obj->Checkpass(username,password)==true){
-						booking:
-						cout<<"====== Airplane Ticket ======="<<endl;
+						booking:cout<<"====== Airplane Ticket ======="<<endl;
 						cout<<"1.booking"<<endl;
 						cout<<"2.Exit"<<endl;
 						cin >> choice;
 						switch (choice){
-							case '1':
+							case 1:
 								cout <<"1.booking";
+								cout <<"input your name :";
+								cin >> PassengerName;
+								cout <<"Choose Seat Class :";
+								cin >> Class;
+								cout << "Choose Seat position ";
+								cin >> Seat;
+								cout <<"Travel form :";
+								cin >> Form;																
+								cout <<"Travel to?";
+								cin >> to;
+								cout <<"Date of ticket purchase :";
+								cin >> Date;
+								ticket->Add_ticket(PassengerName,Class,Seat,Form,to,Date);
+								ticket->saveticket();
+								ticket->showTicket();
 							goto booking;
 							break;
-							case '2':
+							case 2:
+								cout <<"2.booking no login";
+								cout <<"input your name :";
+								cin >> PassengerName;
+								cout <<"Choose Seat Class :";
+								cin >> Class;
+								cout << "Choose Seat position :";
+								cin >> Seat;
+								cout <<"Travel form :";
+								cin >> Form;																
+								cout <<"Travel to? :";
+								cin >> to;
+								cout <<"Date of ticket purchase :";
+								cin >> Date;
+								ticket->Add_ticket(PassengerName,Class,Seat,Form,to,Date);
+								ticket->saveticket();
+								ticket->showTicket();
 							goto Airplane;
 							break;
 						}
@@ -299,13 +350,44 @@ int main(){
 						cout<<"====== Airplane Ticket ======="<<endl;
 						cout<<"1.booking"<<endl;
 						cout<<"2.Exit"<<endl;
-						cin >> choice;
-						switch (choice){
-						case '1':
+						cin >> choice2;
+						switch (choice2){
+						case 1:
 							cout <<"1.booking";
+								cout <<"input your name :";
+								cin >> PassengerName;
+								cout <<"Choose Seat Class :";
+								cin >> Class;
+								cout << "Choose Seat position ";
+								cin >> Seat;
+								cout <<"Travel form :";
+								cin >> Form;																
+								cout <<"Travel to?";
+								cin >> to;
+								cout <<"Date of ticket purchase :";
+								cin >> Date;
+								ticket->Add_ticket(PassengerName,Class,Seat,Form,to,Date);
+								ticket->saveticket();
+								ticket->showTicket();
 								goto booking;
 								break;
-						case '2':
+						case 2:
+								cout <<"2.booking no login";
+								cout <<"input your name :";
+								cin >> PassengerName;
+								cout <<"Choose Seat Class :";
+								cin >> Class;
+								cout << "Choose Seat position ";
+								cin >> Seat;
+								cout <<"Travel form :";
+								cin >> Form;																
+								cout <<"Travel to?";
+								cin >> to;
+								cout <<"Date of ticket purchase :";
+								cin >> Date;
+								ticket->Add_ticket(PassengerName,Class,Seat,Form,to,Date);
+								ticket->saveticket();
+								ticket->showTicket();
 								goto Airplane;
 								break;
 						}//switch
@@ -321,6 +403,7 @@ int main(){
 		break;
 		case 3:
 			obj->Register();
+			goto login;
 		break;
 		case 4:
 			cout <<"Exit"<<endl;
