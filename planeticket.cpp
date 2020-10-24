@@ -226,8 +226,44 @@ class TicketList{
 		while(temp != NULL){	
 				cout << temp->PassengerName <<" "<< temp->Class << " " << temp->Seat << " "  << temp->Form <<" " << temp->To <<" " << temp->Date << endl;
 				temp = temp->link;
+		}
+	}
+	void Seat(){
+		int disp[5][10];
+			/*Counter variables for the loop*/
+			int i, j;
+			for(i=0; i<5;i++) {
+				for(j=0;j<10;j++) {
+					cout <<"Enter value for disp" << i << " " << j <<" :";
+					cin >> i >> j;
+					//scanf("%d", &disp[i][j]);
+				}
 			}
-
+			//Displaying array elements
+			cout << "Two Dimensional array elements:" << endl;
+			for(i=0; i<5; i++) {
+				for(j=0;j<10;j++) {
+					cout <<i << j;
+					if(j==5){
+					cout << endl;
+					}
+					if(j==10){
+					cout << endl;
+					}
+					if(j==15){
+					cout << endl;
+					}
+					if(j==20){
+					cout << endl;
+					}
+					if(j==25){
+					cout << endl;
+					}
+					if(j==30){
+					cout << endl;
+					}
+				}
+			}
 	}
 };
 
@@ -240,6 +276,7 @@ int main(){
 	int Date;
 	string Class;
 	int menu,YN,yn,choice,choice1,choice2;
+	ticket->Seat();
 	readfile("First_page");
     time_t now = time(0);
     tm *ltm = localtime(&now);
@@ -289,7 +326,7 @@ int main(){
 								cin >> Seat;
 								cout <<"Travel form :";
 								cin >> Form;																
-								cout <<"Travel to?";
+								cout <<"Travel to? :";
 								cin >> to;
 								cout <<"Date of ticket purchase :";
 								cin >> Date;
@@ -403,7 +440,7 @@ int main(){
 		break;
 		case 3:
 			obj->Register();
-			goto login;
+			//goto login;
 		break;
 		case 4:
 			cout <<"Exit"<<endl;
