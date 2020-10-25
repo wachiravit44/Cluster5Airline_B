@@ -210,6 +210,17 @@ class TicketList{
 				count++;
 			}		
 		}
+	string checkname(string id){
+		//loadfile();
+		NodeTicket *temp = head;
+		while(temp != NULL){
+			if(temp->PassengerName == id){
+				return temp->PassengerName;
+			//	break;
+			}
+				temp = temp->link;
+		}
+	}
 	void saveticket(){
 		NodeTicket *temp = head;
 			ofstream myFile3("ticket.txt",ios::out);
@@ -228,43 +239,7 @@ class TicketList{
 				temp = temp->link;
 		}
 	}
-	void Seat(){
-		int disp[5][10];
-			/*Counter variables for the loop*/
-			int i, j;
-			for(i=0; i<5;i++) {
-				for(j=0;j<10;j++) {
-					cout <<"Enter value for disp" << i << " " << j <<" :";
-					cin >> i >> j;
-					//scanf("%d", &disp[i][j]);
-				}
-			}
-			//Displaying array elements
-			cout << "Two Dimensional array elements:" << endl;
-			for(i=0; i<5; i++) {
-				for(j=0;j<10;j++) {
-					cout <<i << j;
-					if(j==5){
-					cout << endl;
-					}
-					if(j==10){
-					cout << endl;
-					}
-					if(j==15){
-					cout << endl;
-					}
-					if(j==20){
-					cout << endl;
-					}
-					if(j==25){
-					cout << endl;
-					}
-					if(j==30){
-					cout << endl;
-					}
-				}
-			}
-	}
+	
 };
 
 int main(){
@@ -272,21 +247,19 @@ int main(){
 	TicketList *ticket = new TicketList;
 	string PassengerName,username,password;
 	string Form,to;
-	string Seat;
+	string Seat,N,n;
 	int Date;
 	string Class;
 	int menu,YN,yn,choice,choice1,choice2;
-	ticket->Seat();
 	readfile("First_page");
     time_t now = time(0);
     tm *ltm = localtime(&now);
-    cout << "Year:" << 1900 + ltm->tm_year << endl;
-    cout << "Month: "<< 1 + ltm->tm_mon<< endl;
-    cout << "Day: "<<  ltm->tm_mday << endl;
+    cout << "Year:" << 1900 + ltm->tm_year <<" ";
+    cout << "Month: "<< 1 + ltm->tm_mon <<" ";
+    cout << "Day: "<<  ltm->tm_mday <<" ";
     cout << "Time: "<< 1 + ltm->tm_hour << ":";
     cout << 1 + ltm->tm_min << ":";
     cout << 1 + ltm->tm_sec << endl;
-	cout <<"You can only reserve ticket 2 weeks in advance."<<endl;
 	Airplane:cout <<"======Airplane ticket booking======"<<endl;
 	cout <<"1.Book ticket"<<endl;
 	cout <<"2.Book ticket in advance"<<endl;
@@ -294,32 +267,30 @@ int main(){
 	cout <<"4.Exit"<<endl;
 	cout <<"Enter=> ";
 	cin >> menu;
-	switch(menu){
-		case 1:
+		if (menu == 1){
 			cout << "Do you want to login?"<<endl;
 			cout << "1.Yes"<<endl;
 			cout << "2.No"<<endl;
 			cout <<"Enter=> ";
 			cin >> yn;
-			switch(yn){
-				case 1:{
+				if (yn){
 					login:cout << "==== Airplane ticket booking ====" << endl;
 					cout << "Enter Username: ";
-					cin>>username;
+					cin>> username;
 					cout << "Enter Password: "; 
 					password = Hide_password();
 					//cin>>password;
 					cout <<endl <<"==================" << endl;
 					if(obj->Checkpass(username,password)==true){
-						booking:cout<<"====== Airplane Ticket ======="<<endl;
+			    booking:cout<<"====== Airplane Ticket ======="<<endl;
 						cout<<"1.booking"<<endl;
 						cout<<"2.Exit"<<endl;
 						cin >> choice;
-						switch (choice){
-							case 1:
 								cout <<"1.booking";
-								cout <<"input your name :";
-								cin >> PassengerName;
+								cout <<"your ID and Name";
+								N = ticket->checkname(username);
+								cout << username <<endl;
+								cout << N <<endl;
 								cout <<"Choose Seat Class :";
 								cin >> Class;
 								cout << "Choose Seat position ";
@@ -334,8 +305,12 @@ int main(){
 								ticket->saveticket();
 								ticket->showTicket();
 							goto booking;
-							break;
-							case 2:
+				}else if(obj->Checkpass(username,password) != true){
+						
+						cout<<"!!!!!Invalid Username or Password!!!! "<<endl;
+						goto Airplane;
+					}
+				}else if (yn){
 								cout <<"2.booking no login";
 								cout <<"input your name :";
 								cin >> PassengerName;
@@ -353,26 +328,15 @@ int main(){
 								ticket->saveticket();
 								ticket->showTicket();
 							goto Airplane;
-							break;
-						}
-					}else if(obj->Checkpass(username,password) != true){
-						
-						cout<<"!!!!!Invalid Username or Password!!!! "<<endl;
-						goto Airplane;
-					}
-					break;
 				}
-			}
-				break;		
-		case 2:
+		}else if (menu == 2){
 			cout << "Do you want to login?"<<endl;
 			cout << "1.Yes"<<endl;
 			cout << "2.No"<<endl;
 			cout <<"Enter=> ";
 			cin >> YN;
-			switch(YN){
-				case 1:
-				login2:cout << "==== Airplane ticket booking ====" << endl;
+			if (YN == 1){
+		 login2:cout << "==== Airplane ticket booking ====" << endl;
 				cout << "Enter Username: ";
 				cin>>username;
 				cout << "Enter Password: "; 	
@@ -385,14 +349,15 @@ int main(){
 					if(obj->Checkpass(username,password) == true){
 						booking2:
 						cout<<"====== Airplane Ticket ======="<<endl;
+						cout <<"You can only reserve ticket 2 weeks in advance."<<endl;
 						cout<<"1.booking"<<endl;
 						cout<<"2.Exit"<<endl;
 						cin >> choice2;
-						switch (choice2){
-						case 1:
 							cout <<"1.booking";
-								cout <<"input your name :";
-								cin >> PassengerName;
+								cout <<"your ID and Name";
+								n = ticket->checkname(username);
+								cout << username <<endl;
+								cout << n <<endl;
 								cout <<"Choose Seat Class :";
 								cin >> Class;
 								cout << "Choose Seat position ";
@@ -407,8 +372,12 @@ int main(){
 								ticket->saveticket();
 								ticket->showTicket();
 								goto booking;
-								break;
-						case 2:
+					}else if(obj->Checkpass(username,password) != true){
+						cout<<"!!!!!Invalid Username or Password!!!!"<<endl;
+						goto login2;
+					}
+			}else if (YN == 2) {
+								cout <<"You can only reserve ticket 2 weeks in advance."<<endl;
 								cout <<"2.booking no login";
 								cout <<"input your name :";
 								cin >> PassengerName;
@@ -426,26 +395,12 @@ int main(){
 								ticket->saveticket();
 								ticket->showTicket();
 								goto Airplane;
-								break;
-						}//switch
-					}else if(obj->Checkpass(username,password) != true){
-						cout<<"!!!!!Invalid Username or Password!!!!"<<endl;
-						goto login2;
-					}
-			
-				break;
-				case 2:
-				break;
 			}
-		break;
-		case 3:
-			obj->Register();
-			//goto login;
-		break;
-		case 4:
-			cout <<"Exit"<<endl;
-		break;
-	}
-	
-	return 0;
+			EXIT:cout <<"Exit"<<endl;		
+		}else if (menu == 3){
+				obj->Register();
+			}else if (menu == 4){
+				goto EXIT;
+			}
+		return 0;
 }
