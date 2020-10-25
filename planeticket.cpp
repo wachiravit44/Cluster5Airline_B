@@ -4,6 +4,111 @@
 /* Date : 16/10/2653     												*/
 /************************************************************************/
 #include "All_include_in_main.h"
+class Seat{
+	private:
+		int count;
+		string p;
+	public:
+		Seat(){
+			count = 0;;
+			p = "";
+
+		}
+		int allOccupied(char arr[7][5]){ 
+			int count=0;
+			for(int i=0;i<7;i++){
+				for(int j=1;j<5;j++)
+				if(arr[i][j]=='X')
+					count++;
+			}if(count==28)
+				return 1;
+			return 0;
+		}
+
+//to display the sits
+	void display(char arr[7][5]){ 
+		for(int i=0;i<7;i++){
+			for(int j=0;j<5;j++){
+				cout<<arr[i][j]<<" ";
+			}
+			cout<<endl;
+		}
+
+		return;
+	}
+
+	//take user data
+	string getData(){ 
+		string p;
+		cout<<"enter valid seat no to check(like 1B) or N to end: ";
+		cin>>p;
+		return p;
+	}
+	string getSeat(){ 
+		return p;
+	}
+	//update sit status
+	void update(char arr[7][5],int row,int col){ 
+		cout<<"congrats, your seat is valid. Reserved for you\n";
+		cout<<"updated seat status..........\n";
+		arr[row][col]='X';
+	}
+
+//checking whether user request for 
+//his sit no can be processed or not
+	int check(char arr[7][5],string s){ 
+	//if user input is not in the range 1A to 7D
+	if(s[0]>'7' || s[0]<'1' || s[1]>'D' || s[1]<'A'){ 
+		cout<<"invalid seat no\n"; //invalid sit no
+		return 0;
+	}
+		int row=-1,col=-1;
+		//find the row no of the user sit
+		for(int i=0;i<7;i++){
+			if(arr[i][0]==s[0])
+				row=i;
+		}
+	//find the column no of user sit
+		for(int j=0;j<5;j++){
+			if(arr[row][j]==s[1])
+				col=j;
+		}
+		//check whether sit is already occupied or not.
+		if(col==-1){
+			cout<<"Seat is already occupied\n";
+			return 0;
+		}else{
+		//if it's a valid sit & not occupied, 
+		//process the requested & update the sit as occupied 
+			update(arr,row,col);   
+		}
+			return 1;
+	} 
+	void airline(char arr[7][5]){
+		// user can stop process by pressing 'N'
+		cout<<"enter N if you are done!\n"; 
+		string s;
+		// continue if not interrepted by user or 
+		//there is valid sit in unoccupied state
+		while(true){ 
+			s=getData(); //get user input
+			//if user input is to stop the process
+			if(s[0]=='N') 
+				break; // break
+
+			//process the request & check according to
+			if(check(arr,s)) 
+				display(arr);
+
+			if(allOccupied(arr)){ //if all sits are occupied
+				cout<<"sorry, no more seats left!!!!!!!!!!1..."<<endl;
+				break; //break
+			}
+		}
+		cout<<"Thanks, that's all"<<endl; //end of program
+	}
+};
+
  class member{
             public:
 				//test
@@ -161,10 +266,10 @@ class NodeTicket{
 		string Seat;
 		string Form,To;
 		string Class;
-		int Date;
+		string Date;
 		NodeTicket*link;
 		NodeTicket *plink;
-		NodeTicket(string PName,string Cl,string Se,string F,string T,int d){
+		NodeTicket(string PName,string Cl,string Se,string F,string T,string d){
 			PassengerName = PName;
 			Seat = Se;
 			Class = Cl;
@@ -197,7 +302,7 @@ class TicketList{
 			head = NULL;
 			tail = NULL;
 		}
-	void Add_ticket(string PassengerName,string Class,string Seat,string Form,string To,int date){
+	void Add_ticket(string PassengerName,string Class,string Seat,string Form,string To,string date){
 			NodeTicket *n = new NodeTicket(PassengerName,Class,Seat,Form,To,date);
 			if(head == NULL){
 				head = n;
@@ -235,7 +340,7 @@ class TicketList{
 	void showTicket(){
 		NodeTicket *temp = head;
 		while(temp != NULL){	
-				cout << temp->PassengerName <<" "<< temp->Class << " " << temp->Seat << " "  << temp->Form <<" " << temp->To <<" " << temp->Date << endl;
+				cout <<"Name : "<< temp->PassengerName <<" Class : "<< temp->Class << " Seat : " << temp->Seat << " Travel form : "  << temp->Form <<" Travel to :" << temp->To <<" Date of ticket purchase : " << temp->Date << endl;
 				temp = temp->link;
 		}
 	}
@@ -245,10 +350,11 @@ class TicketList{
 int main(){
 	memberList *obj = new memberList;
 	TicketList *ticket = new TicketList;
+	Seat *s  = new Seat; 
 	string PassengerName,username,password;
-	string Form,to;
+	string Form,to,Date;
 	string Seat,N,n;
-	int Date;
+	int cost;
 	string Class;
 	int menu,YN,yn,choice,choice1,choice2;
 	readfile("First_page");
@@ -273,7 +379,7 @@ int main(){
 			cout << "2.No"<<endl;
 			cout <<"Enter=> ";
 			cin >> yn;
-				if (yn){
+				if (yn == 1){
 					login:cout << "==== Airplane ticket booking ====" << endl;
 					cout << "Enter Username: ";
 					cin>> username;
@@ -286,38 +392,79 @@ int main(){
 						cout<<"1.booking"<<endl;
 						cout<<"2.Exit"<<endl;
 						cin >> choice;
-								cout <<"1.booking";
-								cout <<"your ID and Name";
-								N = ticket->checkname(username);
+								cout <<"1.booking" <<endl;
+								cout <<"your ID : " ;
 								cout << username <<endl;
-								cout << N <<endl;
-								cout <<"Choose Seat Class :";
+					ChooseClass:cout <<"Choose Seat Class F,B,E:";
 								cin >> Class;
-								cout << "Choose Seat position ";
-								cin >> Seat;
+								if(Class != "F" && Class != "B" && Class != "E"){
+									cout <<"we only have F,B,E class"<<endl;
+									goto ChooseClass;
+								}else if(Class == "F"){
+									cost = 4000;
+								}else if(Class == "B"){
+									cost = 3000;
+								}else if(Class == "E"){
+									cost = 2000;
+								}
+								char Arr[7][5]; 
+								for(int i=0;i<7;i++){
+									//forst column is row number
+									Arr[i][0]=i+1+'0';
+									for(int j=1;j<5;j++){
+										//to represent sit number A,B,C,D respectively
+										Arr[i][j]='A'+j-1; 
+									}
+								}
+								s->display(Arr);
+								s->airline(Arr); //airline function
+								string S = s->getSeat();
+								//cout << "Choose Seat position ";
+								//cin >> Seat;
 								cout <<"Travel form :";
 								cin >> Form;																
 								cout <<"Travel to? :";
 								cin >> to;
 								cout <<"Date of ticket purchase :";
 								cin >> Date;
-								ticket->Add_ticket(PassengerName,Class,Seat,Form,to,Date);
+								ticket->Add_ticket(PassengerName,Class,S,Form,to,Date);
 								ticket->saveticket();
 								ticket->showTicket();
 							goto booking;
-				}else if(obj->Checkpass(username,password) != true){
-						
+				}else if(obj->Checkpass(username,password) != true){	
 						cout<<"!!!!!Invalid Username or Password!!!! "<<endl;
 						goto Airplane;
 					}
-				}else if (yn){
-								cout <<"2.booking no login";
+				}else if (yn == 2){
+								cout <<"2.booking no login"<<endl;
 								cout <<"input your name :";
 								cin >> PassengerName;
-								cout <<"Choose Seat Class :";
+				    ChooseClass2:cout <<"Choose Seat Class F,B,E:";
 								cin >> Class;
-								cout << "Choose Seat position :";
-								cin >> Seat;
+								if(Class != "F" && Class != "B" && Class != "E"){
+									cout <<"we only have F,B,E class"<<endl;
+									goto ChooseClass2;
+								}else if(Class == "F"){
+									cost = 4000;
+								}else if(Class == "B"){
+									cost = 3000;
+								}else if(Class == "E"){
+									cost = 2000;
+								}
+								char arr[7][5]; 
+								for(int i=0;i<7;i++){
+									//forst column is row number
+									arr[i][0]=i+1+'0';
+									for(int j=1;j<5;j++){
+										//to represent sit number A,B,C,D respectively
+										arr[i][j]='A'+j-1; 
+									}
+								}
+								s->display(arr);
+								s->airline(arr);
+								//string S2 = s->getData();
+								//cout << "Choose Seat position :";
+								//cin >> Seat;
 								cout <<"Travel form :";
 								cin >> Form;																
 								cout <<"Travel to? :";
@@ -353,15 +500,35 @@ int main(){
 						cout<<"1.booking"<<endl;
 						cout<<"2.Exit"<<endl;
 						cin >> choice2;
-							cout <<"1.booking";
-								cout <<"your ID and Name";
-								n = ticket->checkname(username);
+							cout <<"1.booking" <<endl;
+								cout <<"your ID : " ;
 								cout << username <<endl;
-								cout << n <<endl;
-								cout <<"Choose Seat Class :";
+					ChooseClass3:cout <<"Choose Seat Class F,B,E:";
 								cin >> Class;
-								cout << "Choose Seat position ";
-								cin >> Seat;
+								if(Class != "F" && Class != "B" && Class != "E"){
+									cout <<"we only have F,B,E class"<<endl;
+									goto ChooseClass3;
+								}else if(Class == "F"){
+									cost = 4000;
+								}else if(Class == "B"){
+									cost = 3000;
+								}else if(Class == "E"){
+									cost = 2000;
+								}
+								char Arr2[7][5]; 
+								for(int i=0;i<7;i++){
+									//forst column is row number
+									Arr2[i][0]=i+1+'0';
+									for(int j=1;j<5;j++){
+										//to represent sit number A,B,C,D respectively
+										Arr2[i][j]='A'+j-1; 
+									}
+								}
+								s->display(Arr2);
+								s->airline(Arr2);
+								//string S3 = s->getData();
+								//cout << "Choose Seat position ";
+								//cin >> Seat;
 								cout <<"Travel form :";
 								cin >> Form;																
 								cout <<"Travel to?";
@@ -378,13 +545,35 @@ int main(){
 					}
 			}else if (YN == 2) {
 								cout <<"You can only reserve ticket 2 weeks in advance."<<endl;
-								cout <<"2.booking no login";
+								cout <<"2.booking no login"<<endl;
 								cout <<"input your name :";
 								cin >> PassengerName;
-								cout <<"Choose Seat Class :";
+				    ChooseClass4:cout <<"Choose Seat Class F,B,E:";
 								cin >> Class;
-								cout << "Choose Seat position ";
-								cin >> Seat;
+								if(Class != "F" && Class != "B" && Class != "E"){
+									cout <<"we only have F,B,E class"<<endl;
+									goto ChooseClass4;
+								}else if(Class == "F"){
+									cost = 4000;
+								}else if(Class == "B"){
+									cost = 3000;
+								}else if(Class == "E"){
+									cost = 2000;
+								}
+								//cout << "Choose Seat position ";
+								//cin >> Seat;
+								char Arr3[7][5]; 
+								for(int i=0;i<7;i++){
+									//forst column is row number
+									Arr3[i][0]=i+1+'0';
+									for(int j=1;j<5;j++){
+										//to represent sit number A,B,C,D respectively
+										Arr3[i][j]='A'+j-1; 
+									}
+								}
+								s->display(Arr3);
+								s->airline(Arr3);
+								//string S4 = s->getData();
 								cout <<"Travel form :";
 								cin >> Form;																
 								cout <<"Travel to?";
