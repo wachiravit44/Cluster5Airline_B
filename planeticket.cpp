@@ -8,6 +8,7 @@ class Seat{
 	private:
 		int count;
 		string p;
+		string seat;
 	public:
 		Seat(){
 			count = 0;;
@@ -42,10 +43,11 @@ class Seat{
 		string p;
 		cout<<"enter valid seat no to check(like 1B) or N to end: ";
 		cin>>p;
+		seat = p;
 		return p;
 	}
 	string getSeat(){ 
-		return p;
+		return seat;
 	}
 	//update sit status
 	void update(char arr[7][5],int row,int col){ 
@@ -91,7 +93,7 @@ class Seat{
 		// continue if not interrepted by user or 
 		//there is valid sit in unoccupied state
 		while(true){ 
-			s=getData(); //get user input
+			s = getData(); //get user input
 			//if user input is to stop the process
 			if(s[0]=='N') 
 				break; // break
@@ -315,6 +317,19 @@ class TicketList{
 				count++;
 			}		
 		}
+		void Add_ticketMember(string user,string Class,string Seat,string Form,string To,string date){
+			NodeTicket *n = new NodeTicket(user,Class,Seat,Form,To,date);
+			if(head == NULL){
+				head = n;
+				tail = head;
+				count++;
+			}else{
+				tail->link = n;
+				n->plink = tail;	
+				tail = n;
+				count++;
+			}		
+		}
 	string checkname(string id){
 		//loadfile();
 		NodeTicket *temp = head;
@@ -344,7 +359,13 @@ class TicketList{
 				temp = temp->link;
 		}
 	}
-	
+	void showTicketMember(){
+		NodeTicket *temp = head;
+		while(temp != NULL){	
+				cout <<"username : "<< temp->PassengerName <<" Class : "<< temp->Class << " Seat : " << temp->Seat << " Travel form : "  << temp->Form <<" Travel to :" << temp->To <<" Date of ticket purchase : " << temp->Date << endl;
+				temp = temp->link;
+		}
+	}
 };
 
 int main(){
@@ -416,18 +437,20 @@ int main(){
 										Arr[i][j]='A'+j-1; 
 									}
 								}
+								//getData();
+								//string S = s->getSeat();
+								//cout << "Choose Seat position ";
+								//cout<<"enter valid seat no to check(like 1B) or N to end: ";
+								//cin >> Seat;
 								s->display(Arr);
 								s->airline(Arr); //airline function
-								string S = s->getSeat();
-								//cout << "Choose Seat position ";
-								//cin >> Seat;
 								cout <<"Travel form :";
 								cin >> Form;																
 								cout <<"Travel to? :";
 								cin >> to;
 								cout <<"Date of ticket purchase :";
 								cin >> Date;
-								ticket->Add_ticket(PassengerName,Class,S,Form,to,Date);
+								ticket->Add_ticketMember(username,Class,Seat,Form,to,Date);
 								ticket->saveticket();
 								ticket->showTicket();
 							goto booking;
@@ -535,7 +558,7 @@ int main(){
 								cin >> to;
 								cout <<"Date of ticket purchase :";
 								cin >> Date;
-								ticket->Add_ticket(PassengerName,Class,Seat,Form,to,Date);
+								ticket->Add_ticketMember(username,Class,Seat,Form,to,Date);
 								ticket->saveticket();
 								ticket->showTicket();
 								goto booking;
