@@ -4,16 +4,131 @@
 /* Date : 16/10/2653     												*/
 /************************************************************************/
 #include "All_include_in_main.h"
+class NodeTicket{
+	public:
+		string PassengerName;
+		string Seat;
+		string Form,To;
+		string Class;
+		string Date;
+		NodeTicket*link;
+		NodeTicket *plink;
+		NodeTicket(string PName,string Cl,string Se,string F,string T,string d){
+			PassengerName = PName;
+			Seat = Se;
+			Class = Cl;
+			Form = F;
+			To = T;
+			Date = d;
+			link = NULL;
+			plink = NULL;
+		}
+};
+class TicketList{
+	private:		
+		NodeTicket *head;
+		NodeTicket *tail;
+		int count;
+		
+	public:
+		TicketList(){
+			head = NULL;
+			tail = NULL;
+			count = 0;
+		}	
+	~TicketList(){
+			for(int i=1;i<count;i++){
+				NodeTicket *temp = head;
+				head = head->link;
+				delete temp;
+				temp = NULL;
+			}
+			head = NULL;
+			tail = NULL;
+		}
+	void Add_ticket(string PassengerName,string Class,string Seat,string Form,string To,string date){
+			NodeTicket *n = new NodeTicket(PassengerName,Class,Seat,Form,To,date);
+			if(head == NULL){
+				head = n;
+				tail = head;
+				count++;
+			}else{
+				tail->link = n;
+				n->plink = tail;	
+				tail = n;
+				count++;
+			}		
+		}
+		void Add_ticketMember(string user,string Class,string Seat,string Form,string To,string date){
+			NodeTicket *n = new NodeTicket(user,Class,Seat,Form,To,date);
+			if(head == NULL){
+				head = n;
+				tail = head;
+				count++;
+			}else{
+				tail->link = n;
+				n->plink = tail;	
+				tail = n;
+				count++;
+			}		
+		}
+	string checkname(string id){
+		//loadfile();
+		NodeTicket *temp = head;
+		while(temp != NULL){
+			if(temp->PassengerName == id){
+				return temp->PassengerName;
+			//	break;
+			}
+				temp = temp->link;
+		}
+	}
+	void saveticket(){
+		NodeTicket *temp = head;
+			ofstream myFile3("ticket.txt",ios::app);
+        	if(myFile3.is_open()){ 
+				while(temp!=NULL){
+					myFile3  << temp->PassengerName <<","<< temp->Class << "," << temp->Seat << ","  << temp->Form <<"," << temp->To <<"," 
+					<< temp->Date << "," << endl;
+					temp = temp->link;
+				}  
+			}	
+	}
+	void showTicket(){
+		NodeTicket *temp = head;
+		while(temp != NULL){	
+				cout <<"========================================================"<<endl;
+				cout <<"PassengerName : "<< temp->PassengerName <<" Class : "<< temp->Class <<endl;
+				cout << "Seat : " << temp->Seat << "Travel form : "  << temp->Form <<" Travel to :"<< temp->To <<" " <<endl;
+				cout <<"Date of ticket purchase : " << temp->Date << endl;
+				cout <<"========================================================"<<endl;
+				temp = temp->link;
+	
+		}
+	}
+	void showTicketMember(){
+		NodeTicket *temp = head;
+		while(temp != NULL){
+				cout <<"========================================================"<<endl;
+				cout <<"username : "<< temp->PassengerName <<" Class : "<< temp->Class <<endl;
+				cout << "Seat : " << temp->Seat << "Travel form : "  << temp->Form <<" Travel to :"<< temp->To <<" " <<endl;
+				cout <<"Date of ticket purchase : " << temp->Date << endl;
+				cout <<"========================================================"<<endl;
+				temp = temp->link;
+		}
+	}
+};
 class Seat{
 	private:
 		int count;
 		string p;
 		string seat;
 	public:
+		TicketList *ticket;
 		Seat(){
 			count = 0;;
 			p = "";
-
+			ticket = new TicketList();
 		}
 		int allOccupied(char arr[7][5]){ 
 			int count=0;
@@ -88,15 +203,16 @@ class Seat{
 		}
 			return 1;
 	} 
-	void airline(char arr[7][5]){
+	void airline(char arr[7][5],string username,string Class,string form,string to,string Date){
 		// user can stop process by pressing 'N'
 		cout<<"enter N if you are done!\n"; 
 		string s;
 		// continue if not interrepted by user or 
 		//there is valid sit in unoccupied state
 		while(true){ 
-			s = getData(); //get user input
-			//if user input is to stop the process
+			s=getData(); //get user input
+						//if user input is to stop the process
+
 			if(s[0]=='N') 
 				break; // break
 
@@ -108,6 +224,7 @@ class Seat{
 				cout<<"sorry, no more seats left!!!!!!!!!!1..."<<endl;
 				break; //break
 			}
+			ticket->Add_ticket(username,Class,s,form, to, Date);
 		}
 		cout<<"Thanks, that's all"<<endl; //end of program
 	}
@@ -264,120 +381,8 @@ class Booking{
             
         }
 };
-class NodeTicket{
-	public:
-		string PassengerName;
-		string Seat;
-		string Form,To;
-		string Class;
-		string Date;
-		NodeTicket*link;
-		NodeTicket *plink;
-		NodeTicket(string PName,string Cl,string Se,string F,string T,string d){
-			PassengerName = PName;
-			Seat = Se;
-			Class = Cl;
-			Form = F;
-			To = T;
-			Date = d;
-			link = NULL;
-			plink = NULL;
-		}
-};
-class TicketList{
-	private:		
-		NodeTicket *head;
-		NodeTicket *tail;
-		int count;
-		
-	public:
-		TicketList(){
-			head = NULL;
-			tail = NULL;
-			count = 0;
-		}	
-	~TicketList(){
-			for(int i=1;i<count;i++){
-				NodeTicket *temp = head;
-				head = head->link;
-				delete temp;
-				temp = NULL;
-			}
-			head = NULL;
-			tail = NULL;
-		}
-	void Add_ticket(string PassengerName,string Class,string Seat,string Form,string To,string date){
-			NodeTicket *n = new NodeTicket(PassengerName,Class,Seat,Form,To,date);
-			if(head == NULL){
-				head = n;
-				tail = head;
-				count++;
-			}else{
-				tail->link = n;
-				n->plink = tail;	
-				tail = n;
-				count++;
-			}		
-		}
-		void Add_ticketMember(string user,string Class,string Seat,string Form,string To,string date){
-			NodeTicket *n = new NodeTicket(user,Class,Seat,Form,To,date);
-			if(head == NULL){
-				head = n;
-				tail = head;
-				count++;
-			}else{
-				tail->link = n;
-				n->plink = tail;	
-				tail = n;
-				count++;
-			}		
-		}
-	string checkname(string id){
-		//loadfile();
-		NodeTicket *temp = head;
-		while(temp != NULL){
-			if(temp->PassengerName == id){
-				return temp->PassengerName;
-			//	break;
-			}
-				temp = temp->link;
-		}
-	}
-	void saveticket(){
-		NodeTicket *temp = head;
-			ofstream myFile3("ticket.txt",ios::app);
-        	if(myFile3.is_open()){ 
-				while(temp!=NULL){
-					myFile3  << temp->PassengerName <<","<< temp->Class << "," << temp->Seat << ","  << temp->Form <<"," << temp->To <<"," 
-					<< temp->Date << "," << endl;
-					temp = temp->link;
-				}  
-			}	
-	}
-	void showTicket(){
-		NodeTicket *temp = head;
-		while(temp != NULL){	
-				cout <<"========================================================"<<endl;
-				cout <<"PassengerName : "<< temp->PassengerName <<" Class : "<< temp->Class <<endl;
-				cout << "Seat : " << temp->Seat << "Travel form : "  << temp->Form <<" Travel to :"<< temp->To <<" " <<endl;
-				cout <<"Date of ticket purchase : " << temp->Date << endl;
-				cout <<"========================================================"<<endl;
-				temp = temp->link;
-	
-		}
-	}
-	void showTicketMember(){
-		NodeTicket *temp = head;
-		while(temp != NULL){
-				cout <<"========================================================"<<endl;
-				cout <<"username : "<< temp->PassengerName <<" Class : "<< temp->Class <<endl;
-				cout << "Seat : " << temp->Seat << "Travel form : "  << temp->Form <<" Travel to :"<< temp->To <<" " <<endl;
-				cout <<"Date of ticket purchase : " << temp->Date << endl;
-				cout <<"========================================================"<<endl;
-				temp = temp->link;
-		}
-	}
-};
+
+
 
 int main(){
 	memberList *obj = new memberList;
@@ -387,7 +392,11 @@ int main(){
 	string Form,to;
 	string Seat,N,n;
 	int cost;
+	int ad;
 	string Class;
+	string d,MO,YYY;
+	int advance;int MMM;
+	int DD;	
 	int menu,YN,yn,choice,choice1,choice2;
 	readfile("First_page");
     time_t now = time(0);
@@ -470,14 +479,14 @@ int main(){
 								//cout<<"enter valid seat no to check(like 1B) or N to end: ";
 								//cin >> Seat;
 								s->display(Arr);
-								s->airline(Arr); //airline function
+								//s->airline(Arr); //airline function
 								cout <<"Travel form :";
 								cin >> Form;																
 								cout <<"Travel to? :";
 								cin >> to;
 								//cout <<"Date of ticket purchase :";
 								//cin >> Date;
-								cout << s->getSeat() <<endl;
+								//cout << s->getSeat() <<endl;
 								ticket->Add_ticketMember(username,Class,s->getSeat(),Form,to,Date);
 								ticket->saveticket();
 								ticket->showTicketMember();
@@ -515,23 +524,26 @@ int main(){
 										arr[i][j]='A'+j-1; 
 									}
 								}
-								
-								s->display(arr);
-								s->airline(arr);
-								//string S2 = s->getData();
-								//cout << "Choose Seat position :";
-								//cin >> Seat;
-								
+																
 								cout <<"Travel form :";
 								cin >> Form;																
 								cout <<"Travel to? :";
 								cin >> to;
 								cout <<"Date of ticket purchase :";
 								cin >> Date;
-								ticket->Add_ticket(PassengerName,Class,s->getSeat(),Form,to,Date);
-								ticket->saveticket();
-								ticket->showTicket();
+								s->display(arr);
+								s->airline(arr,PassengerName,Class,Form,to,Date);
+								//string S2 = s->getData();
+								//cout << "Choose Seat position :";
+								//cin >> Seat;
+								//ticket = s->ticket;
+								//ticket->Add_ticket(PassengerName,Class,s->getSeat(),Form,to,Date);
+								//ticket->saveticket();
+								//ticket->showTicket();
+								s->ticket->saveticket();
+								s->ticket->showTicket();
 							goto Airplane;
+								
 				}
 		}else if (menu == 2){
 			cout << "Do you want to login?"<<endl;
@@ -583,11 +595,11 @@ int main(){
 									}
 								}
 								s->display(Arr2);
-								s->airline(Arr2);
+								//s->airline(Arr2);
 								//string S3 = s->getData();
 								//cout << "Choose Seat position ";
 								//cin >> Seat;
-								int ad;
+								
 								cout <<"Travel form :";
 								cin >> Form;																
 								cout <<"Travel to? :";
@@ -604,28 +616,17 @@ int main(){
 								ticket->Add_ticketMember(username,Class,s->getSeat(),Form,to,Date2);
 								ticket->saveticket();
 								ticket->showTicketMember();
-								string d,MO,YYY;
-								int advance;int MMM;
+
 								d = Date2.substr(0,2);
 								MO = Date2.substr(3,2);
 								YYY = Date2.substr(6,4);
 								stringstream day(d); 
 								stringstream month(MO); 
-    							int DD;	
+    
     							day >> DD;
 								month >> MMM;
 								advance = DD+ad;
-								if(DD == 30){
-									DD = 0;
-									DD = DD+ad;
-									MMM = MMM+1;
-									cout <<"Date you have to go is :" << DD <<"/"<< MMM <<"/" << YYY << endl;
-								}else if(DD == 31){
-									DD = 0;
-									DD = DD+ad;
-									MMM = MMM+1;
-									cout <<"Date you have to go is :" << DD <<"/" << MMM  <<"/" << YYY << endl;
-								}else if(advance > 32 || advance < 43 && MMM == 01 || MMM == 3 || MMM == 5 || MMM == 7 || MMM == 8 || MMM == 10 || MMM == 12){
+								if(advance > 32 || advance < 43 && MMM == 01 || MMM == 3 || MMM == 5 || MMM == 7 || MMM == 8 || MMM == 10 || MMM == 12){
 									if(MMM == 02){
 										DD = 0;
 										//DD = DD+ad;
@@ -695,21 +696,70 @@ int main(){
 										Arr3[i][j]='A'+j-1; 
 									}
 								}
-								s->getData();
-								s->display(Arr3);
-								s->airline(Arr3);
-								//string S4 = s->getData();
 								cout <<"Travel form :";
 								cin >> Form;																
 								cout <<"Travel to?";
 								cin >> to;
 								cout <<"Date of ticket purchase :";
 								cin >> Date;
-								ticket->Add_ticket(PassengerName,Class,s->getSeat(),Form,to,Date);
-								ticket->saveticket();
-								ticket->showTicket();
+								AD2:cout <<"Date of ticket purchase advance:";
+								cin >> ad;
+								if(ad > 14){
+									cout <<"You can only reserve ticket 2 weeks in advance."<<endl;
+									goto AD2;
+								}
+								s->display(Arr3);
+								s->airline(Arr3,PassengerName,Class,Form,to,Date);
+								s->ticket->saveticket();
+								s->ticket->showTicket();
+
+								d = Date.substr(0,2);
+								MO = Date.substr(3,2);
+								YYY = Date.substr(6,4);
+								stringstream day(d); 
+								stringstream month(MO); 
+    							
+    							day >> DD;
+								month >> MMM;
+								advance = DD+ad;
+								
+								if(advance > 32 || advance < 43 && MMM == 01 || MMM == 3 || MMM == 5 || MMM == 7 || MMM == 8 || MMM == 10 || MMM == 12){
+									if(MMM == 02){
+										DD = 0;
+										//DD = DD+ad;
+										DD = DD+advance-29;
+										MMM = MMM+1;
+										cout <<"Date you have to go is :" << DD <<"/" << MMM  <<"/" << YYY << endl;
+									}else if(MMM != 2){
+										DD = 0;
+										//DD = DD+ad;
+										DD = DD+advance-31;
+										MMM = MMM+1;
+										cout <<"Date you have to go is :" << DD <<"/" << MMM  <<"/" << YYY << endl;
+									}	
+								}else if(advance > 31 || advance < 44 && MMM == 01 || MMM == 4 || MMM == 6 || MMM == 9 || MMM == 11){
+									if(MMM == 02){
+										DD = 0;
+										//DD = DD+ad;
+										DD = DD+advance-29;
+										MMM = MMM+1;
+										cout <<"Date you have to go is :" << DD <<"/" << MMM  <<"/" << YYY << endl;
+									}else if(MMM != 2){
+										DD = 0;
+										//DD = DD+ad;
+										DD = DD+advance-30;
+										MMM = MMM+1;
+										cout <<"Date you have to go is :" << DD <<"/" << MMM  <<"/" << YYY << endl;
+									}	
+								}
+								else{
+									DD = DD+ad;
+									cout <<"Date you have to go is :" << DD <<"/" << MO <<"/" << YYY << endl;
+								}							
+								goto booking2;
+						}
 								goto Airplane;
-			}
+			
 			EXIT:cout <<"Exit"<<endl;		
 		}else if (menu == 3){
 				obj->Register();
