@@ -1,0 +1,63 @@
+Samut Prakan,Suvarnabhumi International Airport,BKK - England,London Heathrow Airport,LHR (12.57 hr.) = ไทย-อังกฤษ
+Samut Prakan,Suvarnabhumi International Airport,BKK - New Zealand,Auckland International Airport,AKL (12 hr.) = ไทย - นิวซีแลนด์
+Samut Prakan,Suvarnabhumi International Airport,BKK - France,Paris-Charles de Gaulle Airport,CDG (12hr.) = ไทย-ฝรั่งเศส
+Samut Prakan,Suvarnabhumi International Airport,BKK - Norway,Oslo lufthavn Gardermoen,OSL (9.37 hr.) = ไทย-นอร์เวย์
+Samut Prakan,Suvarnabhumi International Airport,BKK - Australia,Sydney Kingsford Smith International Airport,SYD (9.14 hr.) = ไทย-ออสเตรเลีย
+Samut Prakan,Suvarnabhumi International Airport,BKK - Chile,Santiago Airport,SCL (25.10 hr.) = ไทย-ชิลี
+Samut Prakan,Suvarnabhumi International Airport,BKK - Argentina,LATAM Airlines Argentina,LAA (17 hr.) = ไทย-อาร์เจนตินา
+
+England,London Heathrow Airport,LHR - New Zealand,Auckland International Airport,AKL (1.14 hr.) = อังกฤษ - นิวซีแลนด์
+England,London Heathrow Airport,LHR - France,Paris-Charles de Gaulle Airport,CDG (1.10 hr.) = อังกฤษ - ฝรั่งเศส
+England,London Heathrow Airport,LHR - Norway,Oslo lufthavn Gardermoen,OSL (2 hr.) = อังกฤษ - นอร์เวย์
+England,London Heathrow Airport,LHR - Australia,Sydney Kingsford Smith International Airport,SYD (22.35 hr.) = อังกฤษ - ออสเตรเลีย
+England,London Heathrow Airport,LHR - Chile,Santiago Airport,SCL (3hr) = อังกฤษ - ชิลี
+England,London Heathrow Airport,LHR - Argentina,LATAM Airlines Argentina,LAA (12hr) = อังกฤษ - อาร์เจนตินา
+England,London Heathrow Airport,LHR - Samut Prakan,Suvarnabhumi International Airport,BKK (12.57 hr.) = อังกฤษ - ไทย
+
+New Zealand,Auckland International Airport,AKL - France,Paris-Charles de Gaulle Airport,CDG ( 3hr.) = นิวซีแลนด์-ฝรั่งเศส
+New Zealand,Auckland International Airport,AKL - Norway,Oslo lufthavn Gardermoen,OSL ( 4hr.) = นิวซีแลนด์-นอร์เวย์
+New Zealand,Auckland International Airport,AKL - Australia,Sydney Kingsford Smith International Airport,SYD ( 10hr.) = นิวซีแลนด์-ออสเตรเลีย
+New Zealand,Auckland International Airport,AKL - Chile,Santiago Airport,SCL ( 5hr.) = นิวซีแลนด์-ชิลี
+New Zealand,Auckland International Airport,AKL - Argentina,LATAM Airlines Argentina,LAA ( 2hr.) = นิวซีแลนด์-อาร์เจนตินา
+New Zealand,Auckland International Airport,AKL - Samut Prakan,Suvarnabhumi International Airport,BKK ( 12hr.) = นิวซีแลนด์-ไทย
+New Zealand,Auckland International Airport,AKL - England,London Heathrow Airport,LHR ( 2hr.) = นิวซีแลนด์-อังกฤษ
+
+France,Paris-Charles de Gaulle Airport,CDG - Norway,Oslo lufthavn Gardermoen,OSL (12hr.) = ฝรั่งเศส - นอร์เวย์
+France,Paris-Charles de Gaulle Airport,CDG - Australia,Sydney Kingsford Smith International Airport,SYD(11hr.)= ฝรั่งเศส - ออสเตรเลีย
+France,Paris-Charles de Gaulle Airport,CDG - Chile,Santiago Airport,SCL ( 13hr.)= ฝรั่งเศส - ชิลี
+France,Paris-Charles de Gaulle Airport,CDG - Argentina,LATAM Airlines Argentina,LAA ( 10hr.)= ฝรั่งเศส - อาร์เจนตินา
+France,Paris-Charles de Gaulle Airport,CDG - Samut Prakan,Suvarnabhumi International Airport,BKK ( 12hr.)= ฝรั่งเศส - ไทย
+France,Paris-Charles de Gaulle Airport,CDG - England,London Heathrow Airport,LHR ( 1.10hr.)= ฝรั่งเศส - อังกฤษ
+France,Paris-Charles de Gaulle Airport,CDG - New Zealand,Auckland International Airport,AKL ( 9.37hr.)= ฝรั่งเศส - นิงซีแลนด์
+
+Norway,Oslo lufthavn Gardermoen,OSL - Australia,Sydney Kingsford Smith International Airport,SYD(20hr.) = นอร์เวย์ - ออสเตรเลีย
+Norway,Oslo lufthavn Gardermoen,OSL - Chile,Santiago Airport,SCL ( 00.50hr.) = นอร์เวย์ - ชิลี
+Norway,Oslo lufthavn Gardermoen,OSL - Argentina,LATAM Airlines Argentina,LAA ( 22hr.) = นอร์เวย์ - อาร์เจนตินา
+Norway,Oslo lufthavn Gardermoen,OSL - Samut Prakan,Suvarnabhumi International Airport,BKK ( 9.37hr.) = นอร์เวย์ - ไทย
+Norway,Oslo lufthavn Gardermoen,OSL - England,London Heathrow Airport,LHR ( 2hr.) = นอร์เวย์ - อังกฤษ
+Norway,Oslo lufthavn Gardermoen,OSL - New Zealand,Auckland International Airport,AKL ( 4hr.) = นอร์เวย์ - นิวซีเเลนด์
+Norway,Oslo lufthavn Gardermoen,OSL - France,Paris-Charles de Gaulle Airport,CDG ( 12hr.) = นอร์เวย์ - ฝรั่งเศส
+
+Australia,Sydney Kingsford Smith International Airport,SYD - Chile,Santiago Airport,SCL ( 15hr.) = ออสเตรเลีย - ชิลี
+Australia,Sydney Kingsford Smith International Airport,SYD - Argentina,LATAM Airlines Argentina,LAA ( 17hr.) = ออสเตรเลีย - อาร์เจนตินา
+Australia,Sydney Kingsford Smith International Airport,SYD - Samut Prakan,Suvarnabhumi International Airport,BKK (9.14 hr.) = ออสเตรเลีย - ไทย
+Australia,Sydney Kingsford Smith International Airport,SYD - England,London Heathrow Airport,LHR (22.35 hr.) = ออสเตรเลีย - อังกฤษ
+Australia,Sydney Kingsford Smith International Airport,SYD - New Zealand,Auckland International Airport,AKL ( 10hr.) = ออสเตรเลีย - นิวซีเเลนด์
+Australia,Sydney Kingsford Smith International Airport,SYD - France,Paris-Charles de Gaulle Airport,CDG ( 11hr.) = ออสเตรเลีย - ฝรั่งเศส
+Australia,Sydney Kingsford Smith International Airport,SYD - Norway,Oslo lufthavn Gardermoen,OSL( 20hr.) = ออสเตรเลีย - นอร์เวย์
+
+Chile,Santiago Airport,SCL - Argentina,LATAM Airlines Argentina,LAA ( 13hr.) = ชิลี - อาร์เจนตินา
+Chile,Santiago Airport,SCL - Samut Prakan,Suvarnabhumi International Airport,BKK (25.10 hr.) = ชิลี - ไทย
+Chile,Santiago Airport,SCL - England,London Heathrow Airport,LHR ( 3hr.) = ชิลี - อังกฤษ
+Chile,Santiago Airport,SCL - New Zealand,Auckland International Airport,AKL ( 5hr.) = ชิลี - นิวซีเเลนด์
+Chile,Santiago Airport,SCL - France,Paris-Charles de Gaulle Airport,CDG ( 13hr.) = ชิลี - ฝรั่งเศส                        
+Chile,Santiago Airport,SCL - Norway,Oslo lufthavn Gardermoen,OSL( 00.50hr.) = ชิลี- นอร์เวย์
+Chile,Santiago Airport,SCL - Australia,Sydney Kingsford Smith International Airport,SYD ( 15hr.) = ชิลี - ออสเตรเลีย
+
+Argentina,LATAM Airlines Argentina,LAA - Samut Prakan,Suvarnabhumi International Airport,BKK (17 hr.) = อาร์เจนตินา - ไทย
+Argentina,LATAM Airlines Argentina,LAA - England,London Heathrow Airport,LHR ( 12hr.) = อาร์เจนตินา - อังกฤษ
+Argentina,LATAM Airlines Argentina,LAA - New Zealand,Auckland International Airport,AKL ( 2hr.) = อาร์เจนตินา - นิวซีเเลนด์
+Argentina,LATAM Airlines Argentina,LAA - France,Paris-Charles de Gaulle Airport,CDG ( 9.37hr.) = อาร์เจนตินา - ฝรั่งเศส 
+Argentina,LATAM Airlines Argentina,LAA - Norway,Oslo lufthavn Gardermoen,OSL( 22hr.) = อาร์เจนตินา - นอร์เวย์
+Argentina,LATAM Airlines Argentina,LAA - Australia,Sydney Kingsford Smith International Airport,SYD ( 17hr.) = อาร์เจนตินา - ออสเตรเลีย
+Argentina,LATAM Airlines Argentina,LAA - Chile,Santiago Airport,SCL (13hr.)= อาร์เจนตินา - ชิลี
