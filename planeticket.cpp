@@ -99,7 +99,7 @@ class TicketList{
 		while(temp != NULL){	
 				cout <<"========================================================"<<endl;
 				cout <<"PassengerName : "<< temp->PassengerName <<" Class : "<< temp->Class <<endl;
-				cout << "Seat : " << temp->Seat << "Travel form : "  << temp->Form <<" Travel to :"<< temp->To <<" " <<endl;
+				cout << "Seat : " << temp->Seat <<" "<< "Travel form : "  << temp->Form <<" Travel to :"<< temp->To <<" " <<endl;
 				cout <<"Date of ticket purchase : " << temp->Date << endl;
 				cout <<"========================================================"<<endl;
 				temp = temp->link;
@@ -111,7 +111,7 @@ class TicketList{
 		while(temp != NULL){
 				cout <<"========================================================"<<endl;
 				cout <<"username : "<< temp->PassengerName <<" Class : "<< temp->Class <<endl;
-				cout << "Seat : " << temp->Seat << "Travel form : "  << temp->Form <<" Travel to :"<< temp->To <<" " <<endl;
+				cout << "Seat : " << temp->Seat <<" " << "Travel form : "  << temp->Form <<" Travel to :"<< temp->To <<" " <<endl;
 				cout <<"Date of ticket purchase : " << temp->Date << endl;
 				cout <<"========================================================"<<endl;
 				temp = temp->link;
@@ -698,7 +698,7 @@ int main(){
 								}
 								cout <<"Travel form :";
 								cin >> Form;																
-								cout <<"Travel to?";
+								cout <<"Travel to? :";
 								cin >> to;
 								cout <<"Date of ticket purchase :";
 								cin >> Date;
