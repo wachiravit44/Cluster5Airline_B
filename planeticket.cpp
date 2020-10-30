@@ -4,6 +4,128 @@
 /* Date : 16/10/2653     												*/
 /************************************************************************/
 #include "All_include_in_main.h"
+#include<iostream>
+
+using namespace std;
+
+class Node{
+public:
+    string PassengerName;
+	string Seat;
+	string Form,To;
+	string Class;
+	string Date;
+    Node *next;
+	Node(string PName,string Cl,string Se,string F,string T,string d){
+			PassengerName = PName;
+			Seat = Se;
+			Class = Cl;
+			Form = F;
+			To = T;
+			Date = d;
+			next = NULL;
+		}
+};
+
+class Queue{
+    Node *head;
+    Node *tail;
+    Node *prev;
+    Node *temp;
+    bool isEmpty(){
+        return head == NULL;
+    }
+public:
+    Queue(){
+        head = NULL;
+        tail = NULL;
+    }
+	/*void sort(){
+			Node *temp = head;
+			Node *i,*j;
+			string PassengerName,Seat,Form,To,Class,Date;
+			i = head; 
+			j = i;
+				for(i= head;i!=NULL;i=i->next){
+					for(j=i;j!=NULL;j=j->next){
+						if(i->Class < j->Class){
+							PassengerName = i->PassengerName;
+							Seat = i->Seat;
+							Form = i->Form;
+							To = i->Form;
+							Class = i->Class;
+							Date = i->Date;
+							
+							i->PassengerName = j->PassengerName;
+							i->Seat = j->Seat;
+							i->Form = j->Form;
+							i->To = j->To;
+							i->Class = j->Class;
+							i->Date = j->Date;
+
+							j->PassengerName = PassengerName;
+							j->Seat = Seat;
+							j->Form = Form;
+							j->To = To;
+							j->Class = Class;
+							j->Date = Date;
+						}
+							
+					}
+				}
+	}*/
+    void enqueue(string PName,string Cl,string Se,string F,string T,string d){
+        temp = new Node(PName,Cl,Se,F,T,d);
+        temp->PassengerName = PName;
+		temp->Seat = Se;
+		temp->Class	= Cl;
+		temp->Form = F;
+		temp->To = T;
+		temp->Date = d;
+        temp->next = NULL;
+        if(isEmpty()){
+            head = temp;
+            tail = temp;
+        }
+        else{
+            prev = tail;
+            tail->next = temp;
+            tail = temp;
+        }
+    }
+    void dequeue(){
+        temp = head;
+        head = head->next;
+        delete temp;
+    }
+
+    void find(string PName) {
+        int i;
+        for(i=1, temp = head;temp->next != NULL && temp->PassengerName != PName;temp = temp->next, i++);
+        if(temp->PassengerName == PName){
+            cout << "order of entry (Queue):" << i << endl;
+        }
+        else if(temp->next == NULL){
+            cout << "Error: Number Not found..." << endl;
+        }
+    }
+    void display(string PName){
+        if(!isEmpty()){
+            for(temp = head; temp != NULL; temp=temp->next){
+				//cout <<"order of entry "<<endl;	
+				find(PName);
+				cout <<"========================================================"<<endl;
+				cout <<"PassengerName : "<< temp->PassengerName <<" Class : "<< temp->Class <<endl;
+				cout << "Seat : " << temp->Seat <<" "<< "Travel form : "  << temp->Form <<" Travel to :"<< temp->To <<" " <<endl;
+				cout <<"Date of ticket purchase : " << temp->Date << endl;
+				cout <<"========================================================"<<endl;
+			} 
+        }
+        else{
+            cout << "Queue is Empty!" << endl;
+        }
+    }
+};
 class NodeTicket{
 	public:
 		string PassengerName;
@@ -103,8 +225,7 @@ class TicketList{
 				cout <<"Date of ticket purchase : " << temp->Date << endl;
 				cout <<"========================================================"<<endl;
 				temp = temp->link;
-	
-		}
+		} 
 	}
 	void showTicketMember(){
 		NodeTicket *temp = head;
@@ -388,6 +509,7 @@ int main(){
 	memberList *obj = new memberList;
 	TicketList *ticket = new TicketList;
 	Seat *s  = new Seat; 
+	Queue *q = new Queue;
 	string PassengerName,username,password,Date2;
 	string Form,to;
 	string Seat,N,n;
@@ -464,6 +586,7 @@ int main(){
 								}else if(Class == "E"){
 									cost = 2000;
 								}
+
 								char Arr[7][5]; 
 								for(int i=0;i<7;i++){
 									//forst column is row number
@@ -488,6 +611,7 @@ int main(){
 								//cin >> Date;
 								//cout << s->getSeat() <<endl;
 								ticket->Add_ticketMember(username,Class,s->getSeat(),Form,to,Date);
+								q->enqueue(username,Class,s->getSeat(),Form,to,Date);
 								ticket->saveticket();
 								ticket->showTicketMember();
 							goto booking;
@@ -563,8 +687,8 @@ int main(){
 						goto login2;
 					}
 					if(obj->Checkpass(username,password) == true){
-						booking2:
-						cout<<"====== Airplane Ticket ======="<<endl;
+						
+				booking2:cout<<"====== Airplane Ticket ======="<<endl;
 						cout <<"You can only reserve ticket 2 weeks in advance."<<endl;
 						cout<<"1.booking"<<endl;
 						cout<<"2.Exit"<<endl;
@@ -614,9 +738,10 @@ int main(){
 									goto AD;
 								}
 								ticket->Add_ticketMember(username,Class,s->getSeat(),Form,to,Date2);
+								q->enqueue(username,Class,s->getSeat(),Form,to,Date2);
 								ticket->saveticket();
 								ticket->showTicketMember();
-
+								q->display(username);
 								d = Date2.substr(0,2);
 								MO = Date2.substr(3,2);
 								YYY = Date2.substr(6,4);
@@ -669,7 +794,7 @@ int main(){
 						goto login2;
 					}
 			}else if (YN == 2) {
-								cout <<"You can only reserve ticket 2 weeks in advance."<<endl;
+								bookingAdnologin:cout <<"You can only reserve ticket 2 weeks in advance."<<endl;
 								cout <<"2.booking no login"<<endl;
 								cout <<"input your name :";
 								cin >> PassengerName;
@@ -712,7 +837,9 @@ int main(){
 								s->airline(Arr3,PassengerName,Class,Form,to,Date);
 								s->ticket->saveticket();
 								s->ticket->showTicket();
-
+								q->enqueue(PassengerName,Class,Class,Form,to,Date);
+								//q->sort();
+								q->display(PassengerName);
 								d = Date.substr(0,2);
 								MO = Date.substr(3,2);
 								YYY = Date.substr(6,4);
@@ -726,13 +853,11 @@ int main(){
 								if(advance > 32 || advance < 43 && MMM == 01 || MMM == 3 || MMM == 5 || MMM == 7 || MMM == 8 || MMM == 10 || MMM == 12){
 									if(MMM == 02){
 										DD = 0;
-										//DD = DD+ad;
 										DD = DD+advance-29;
 										MMM = MMM+1;
 										cout <<"Date you have to go is :" << DD <<"/" << MMM  <<"/" << YYY << endl;
 									}else if(MMM != 2){
 										DD = 0;
-										//DD = DD+ad;
 										DD = DD+advance-31;
 										MMM = MMM+1;
 										cout <<"Date you have to go is :" << DD <<"/" << MMM  <<"/" << YYY << endl;
@@ -740,13 +865,11 @@ int main(){
 								}else if(advance > 31 || advance < 44 && MMM == 01 || MMM == 4 || MMM == 6 || MMM == 9 || MMM == 11){
 									if(MMM == 02){
 										DD = 0;
-										//DD = DD+ad;
 										DD = DD+advance-29;
 										MMM = MMM+1;
 										cout <<"Date you have to go is :" << DD <<"/" << MMM  <<"/" << YYY << endl;
 									}else if(MMM != 2){
 										DD = 0;
-										//DD = DD+ad;
 										DD = DD+advance-30;
 										MMM = MMM+1;
 										cout <<"Date you have to go is :" << DD <<"/" << MMM  <<"/" << YYY << endl;
@@ -756,7 +879,7 @@ int main(){
 									DD = DD+ad;
 									cout <<"Date you have to go is :" << DD <<"/" << MO <<"/" << YYY << endl;
 								}							
-								goto booking2;
+								goto bookingAdnologin;
 						}
 								goto Airplane;
 			
