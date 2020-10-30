@@ -40,11 +40,13 @@ class Seat{
 
 	//take user data
 	string getData(){ 
-		string p;
+		string as;
 		cout<<"enter valid seat no to check(like 1B) or N to end: ";
-		cin>>p;
-		seat = p;
-		return p;
+		cin>>as;
+		if(as != "N"){
+			seat = as;
+		}
+		return as;
 	}
 	string getSeat(){ 
 		return seat;
@@ -361,7 +363,7 @@ class TicketList{
 				cout <<"Date of ticket purchase : " << temp->Date << endl;
 				cout <<"========================================================"<<endl;
 				temp = temp->link;
-				temp = temp->link;
+	
 		}
 	}
 	void showTicketMember(){
@@ -462,7 +464,7 @@ int main(){
 										Arr[i][j]='A'+j-1; 
 									}
 								}
-								//getData();
+								
 								//string S = s->getSeat();
 								//cout << "Choose Seat position ";
 								//cout<<"enter valid seat no to check(like 1B) or N to end: ";
@@ -475,7 +477,8 @@ int main(){
 								cin >> to;
 								//cout <<"Date of ticket purchase :";
 								//cin >> Date;
-								ticket->Add_ticketMember(username,Class,Seat,Form,to,Date);
+								cout << s->getSeat() <<endl;
+								ticket->Add_ticketMember(username,Class,s->getSeat(),Form,to,Date);
 								ticket->saveticket();
 								ticket->showTicketMember();
 							goto booking;
@@ -512,18 +515,20 @@ int main(){
 										arr[i][j]='A'+j-1; 
 									}
 								}
+								
 								s->display(arr);
 								s->airline(arr);
 								//string S2 = s->getData();
 								//cout << "Choose Seat position :";
 								//cin >> Seat;
+								
 								cout <<"Travel form :";
 								cin >> Form;																
 								cout <<"Travel to? :";
 								cin >> to;
 								cout <<"Date of ticket purchase :";
 								cin >> Date;
-								ticket->Add_ticket(PassengerName,Class,Seat,Form,to,Date);
+								ticket->Add_ticket(PassengerName,Class,s->getSeat(),Form,to,Date);
 								ticket->saveticket();
 								ticket->showTicket();
 							goto Airplane;
@@ -596,7 +601,7 @@ int main(){
 									cout <<"You can only reserve ticket 2 weeks in advance."<<endl;
 									goto AD;
 								}
-								ticket->Add_ticketMember(username,Class,Seat,Form,to,Date2);
+								ticket->Add_ticketMember(username,Class,s->getSeat(),Form,to,Date2);
 								ticket->saveticket();
 								ticket->showTicketMember();
 								string d,MO,YYY;
@@ -690,6 +695,7 @@ int main(){
 										Arr3[i][j]='A'+j-1; 
 									}
 								}
+								s->getData();
 								s->display(Arr3);
 								s->airline(Arr3);
 								//string S4 = s->getData();
@@ -699,7 +705,7 @@ int main(){
 								cin >> to;
 								cout <<"Date of ticket purchase :";
 								cin >> Date;
-								ticket->Add_ticket(PassengerName,Class,Seat,Form,to,Date);
+								ticket->Add_ticket(PassengerName,Class,s->getSeat(),Form,to,Date);
 								ticket->saveticket();
 								ticket->showTicket();
 								goto Airplane;
