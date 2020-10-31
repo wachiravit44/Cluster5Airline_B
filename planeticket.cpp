@@ -349,6 +349,31 @@ class Seat{
 		}
 		cout<<"Thanks, that's all"<<endl; //end of program
 	}
+	void airline_member(char arr[7][5],string username,string Class,string form,string to,string Date){
+		// user can stop process by pressing 'N'
+		cout<<"enter N if you are done!\n"; 
+		string s;
+		// continue if not interrepted by user or 
+		//there is valid sit in unoccupied state
+		while(true){ 
+			s=getData(); //get user input
+						//if user input is to stop the process
+
+			if(s[0]=='N') 
+				break; // break
+
+			//process the request & check according to
+			if(check(arr,s)) 
+				display(arr);
+
+			if(allOccupied(arr)){ //if all sits are occupied
+				cout<<"sorry, no more seats left!!!!!!!!!!1..."<<endl;
+				break; //break
+			}
+			ticket->Add_ticketMember(username,Class,s,form, to, Date);
+		}
+		cout<<"Thanks, that's all"<<endl; //end of program
+	}
 };
 
  class member{
@@ -600,20 +625,18 @@ int main(){
 								//string S = s->getSeat();
 								//cout << "Choose Seat position ";
 								//cout<<"enter valid seat no to check(like 1B) or N to end: ";
-								//cin >> Seat;
-								s->display(Arr);
-								//s->airline(Arr); //airline function
+								//cin >> Seat;								
 								cout <<"Travel form :";
 								cin >> Form;																
 								cout <<"Travel to? :";
 								cin >> to;
+								s->display(Arr);
+								s->airline_member(Arr,username,Class,Form,to,Date); //airline function
+								s->ticket->saveticket();
+								s->ticket->showTicketMember();
 								//cout <<"Date of ticket purchase :";
 								//cin >> Date;
 								//cout << s->getSeat() <<endl;
-								ticket->Add_ticketMember(username,Class,s->getSeat(),Form,to,Date);
-								q->enqueue(username,Class,s->getSeat(),Form,to,Date);
-								ticket->saveticket();
-								ticket->showTicketMember();
 							goto booking;
 						}else if(choice == 2){
 							goto EXIT;
@@ -718,12 +741,6 @@ int main(){
 										Arr2[i][j]='A'+j-1; 
 									}
 								}
-								s->display(Arr2);
-								//s->airline(Arr2);
-								//string S3 = s->getData();
-								//cout << "Choose Seat position ";
-								//cin >> Seat;
-								
 								cout <<"Travel form :";
 								cin >> Form;																
 								cout <<"Travel to? :";
@@ -737,10 +754,16 @@ int main(){
 									cout <<"You can only reserve ticket 2 weeks in advance."<<endl;
 									goto AD;
 								}
-								ticket->Add_ticketMember(username,Class,s->getSeat(),Form,to,Date2);
+								s->display(Arr2);
+								s->airline(Arr2,username,Class,Form,to,Date2);
+								//string S3 = s->getData();
+								//cout << "Choose Seat position ";
+								//cin >> Seat;
+								
+								//s->Add_ticketMember(username,Class,s->getSeat(),Form,to,Date2);
 								q->enqueue(username,Class,s->getSeat(),Form,to,Date2);
-								ticket->saveticket();
-								ticket->showTicketMember();
+								s->ticket->saveticket();
+								s->ticket->showTicketMember();
 								q->display(username);
 								d = Date2.substr(0,2);
 								MO = Date2.substr(3,2);
