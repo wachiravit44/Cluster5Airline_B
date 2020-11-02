@@ -1,0 +1,10 @@
+Suvarnabhumi,England,00.30,08.30,10000
+Suvarnabhumi,England,09.00,19.00,8500
+Suvarnabhumi,England,12.00,00.00,6000
+Suvarnabhumi,England,15.00,05.00,4000
+Suvarnabhumi,England,21.00,13.00,3000
+Suvarnabhumi,New Zealand,00.30,08.30,10000
+Suvarnabhumi,New Zealand,09.00,19.00,8500
+Suvarnabhumi,New Zealand,12.00,00.00,6000
+Suvarnabhumi,New Zealand,15.00,05.00,4000
+Suvarnabhumi,New Zealand,21.00,13.00,3000
