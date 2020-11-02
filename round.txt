@@ -8,3 +8,13 @@ Suvarnabhumi,New Zealand,09.00,19.00,8500
 Suvarnabhumi,New Zealand,12.00,00.00,6000
 Suvarnabhumi,New Zealand,15.00,05.00,4000
 Suvarnabhumi,New Zealand,21.00,13.00,3000
+Suvarnabhumi,France,00.30,08.30,10000
+Suvarnabhumi,France,09.00,19.00,8500
+Suvarnabhumi,France,12.00,00.00,6000
+Suvarnabhumi,France,15.00,05.00,4000
+Suvarnabhumi,France,21.00,13.00,3000
+Suvarnabhumi,Australia,00.30,08.30,10000
+Suvarnabhumi,Australia,09.00,19.00,8500
+Suvarnabhumi,Australia,12.00,00.00,6000
+Suvarnabhumi,Australia,15.00,05.00,4000
+Suvarnabhumi,Australia,21.00,13.00,3000
