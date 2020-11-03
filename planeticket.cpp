@@ -152,12 +152,12 @@ class NodeTicket{
 		}
 };
 class TicketList{
-	private:		
+	public:		
 		NodeTicket *head;
 		NodeTicket *tail;
 		int count;
 		
-	public:
+	
 		TicketList(){
 			head = NULL;
 			tail = NULL;
@@ -260,6 +260,9 @@ class TicketList{
 					temp = temp->link;
 				}  
 			}	
+	}
+	void sort(){
+		
 	}
 	void showTicket(){
 		NodeTicket *temp = head;
@@ -663,7 +666,64 @@ void Enter(){
   system("cls");
 }
 
+void clear(){
+		TicketList *temp = new TicketList;
+		string filein,name,Class,s,de,ter,date,out,to;
+		fstream DE;
+		fstream myfile("ticket.txt",ios::in);
+			while(getline(myfile,filein)){
+				cout << "AS" << endl;
+				name = filein.substr(0,filein.find(','));
+					filein.erase(0,filein.find(',')+1);
+				Class = filein.substr(0,filein.find(','));
+					filein.erase(0,filein.find(',')+1);
+				s = filein.substr(0,filein.find(','));
+					filein.erase(0,filein.find(',')+1);
+				de = filein.substr(0,filein.find(','));
+					filein.erase(0,filein.find(',')+1);
+				ter = filein.substr(0,filein.find(','));
+					filein.erase(0,filein.find(',')+1);
+				date = filein.substr(0,filein.find(','));
+					filein.erase(0,filein.find(',')+1);
+				out = filein.substr(0,filein.find(','));
+					filein.erase(0,filein.find(',')+1);
+				to = filein;
+				temp->Add_ticket(name,Class,s,de,ter,date,out,to);
+            }
+			myfile.close();
+		cout << "asd" <<endl;
+	
+	string days,mon,years;
+	    time_t now = time(0);
+    	tm *ltm = localtime(&now);
+		int year,m,day,H,min,sec;
+		year = 1900 + ltm->tm_year;
+		m = 1 + ltm->tm_mon;
+		day = ltm->tm_mday;
+	
+	DE.open("ticket.txt",ios::out);
+	while(temp->head != NULL){
+			days = temp->head->Date.substr(0,2);
+			mon = temp->head->Date.substr(3,2);
+			years = temp->head->Date.substr(6,4);
+			stringstream D,M,Y;
+			D << days;
+			M << mon;
+			Y << years;
+			D >> H;
+			M >> min;
+			Y >> sec;
+		if(H >= day && min >= m && sec >= year){
+			DE << temp->head->PassengerName <<","<< temp->head->Class << "," << temp->head->Seat << ","  << temp->head->Form <<"," << temp->head->To <<"," 
+					<< temp->head->Date << "," <<temp->head->Time << "," <<temp->head->out<<endl;
+		}
+		temp->head = temp->head->link;
+	}
+	DE.close();
+}
+
 int main(){
+	clear();
 	memberList *obj = new memberList;
 	TicketList *ticket = new TicketList;
 	round *Round = new round;
@@ -1170,5 +1230,6 @@ int main(){
 			}else if (menu == 4){
 				goto EXIT;
 			}
+		clear();
 		return 0;
 }
