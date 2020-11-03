@@ -12,3 +12,7 @@ we,F,2C,Suvarnabhumi,England,13/11/2020,15.00,05.00
 12345678,F,2A,Suvarnabhumi,England,03/11/2020,21.00,13.00
 12345678,F,5B,Suvarnabhumi,England,03/11/2020,21.00,13.00
 12345678,F,2B,Suvarnabhumi,England,03/11/2020,21.00,13.00
+asdfghjk,F,1A,Suvarnabhumi,Australia,03/11/2020,21.00,13.00
+asdfghjk,F,2B,Suvarnabhumi,Australia,03/11/2020,21.00,13.00
+qq,E,1A,Suvarnabhumi,Australia,11/11/2020,21.00,13.00
+qq,E,3B,Suvarnabhumi,Australia,11/11/2020,21.00,13.00

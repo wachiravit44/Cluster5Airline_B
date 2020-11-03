@@ -489,48 +489,17 @@ class Seat{
 				break;  // break
 						//process the request & check according to
 			if(check(arr,s)!=0){ 
+				system("cls");
+				readfile("First_page");
+				cout<<"===== SEAT ====="<<endl;
 					display(arr);
-
+				cout<<"================"<<endl;
 				if(allOccupied(arr)){ //if all sits are occupied
 					cout<<"sorry, no more seats left!!!!!!!!!!..."<<endl;
 					break;
 				}
 
 				ticket->Add_ticket(username,Class,s,form, to, Date,out,de);
-			}
-		}
-		cout<<"Thanks, that's all"<<endl; //end of program
-	}
-	void airline_member(char arr[7][5],string username,string Class,string form,string to,string Date,string out){
-		// user can stop process by pressing 'N'
-		cout<<"enter N if you are done!\n"; 
-		string s,de;
-		round *as = ro;
-		// continue if not interrepted by user or 
-		//there is valid sit in unoccupied state
-		while(as->head !=NULL){
-			if(as->head->Time_out == out && as->head->Terminal == to){
-				break;
-			}
-			as->head = as->head->link;
-		}
-		de = as->head->Time_to;
-		while(true){ 
-			s=getData(); //get user input
-						//if user input is to stop the process
-
-			if(s[0]=='N') 
-				break; // break
-
-			//process the request & check according to
-			if(check(arr,s)!=0){
-					display(arr);
-
-				if(allOccupied(arr)){ //if all sits are occupied
-					cout<<"sorry, no more seats left!!!!!!!!!!1..."<<endl;
-					break; //break
-				}
-				ticket->Add_ticketMember(username,Class,s,form, to, Date,as->head->Time_out,de);
 			}
 		}
 		cout<<"Thanks, that's all"<<endl; //end of program
@@ -652,9 +621,9 @@ class memberList{
                 }
             do{
                 cout << "========== Sign up ===========" << endl;
-                cout << "ID: ";
+                cout << "ID [8]: ";
                 cin >> id;
-                cout << "Password: ";
+                cout << "Password [10]: ";
                 cin >> pass;
                 cout << "==============================" << endl;
                 //check
@@ -809,6 +778,7 @@ int main(){
 	cout <<"2.Book ticket in advance"<<endl;
 	cout <<"3.register"<<endl;
 	cout <<"4.Exit"<<endl;
+	cout <<"==================================="<<endl;
 	cout <<"Enter=> ";
 	cin >> menu;
 		if (menu == 1){
@@ -834,6 +804,8 @@ int main(){
 						cout<<"====== Airplane Ticket ======="<<endl;
 						cout<<"1.Booking"<<endl;
 						cout<<"2.Back"<<endl;
+						cout<<"==============================" << endl;
+						cout<<"Please Enter : ";
 						cin >> choice;
 						if(choice == 1){
 								cout <<"1.booking" <<endl;
@@ -884,7 +856,8 @@ int main(){
 								cout<<"===== SEAT ====="<<endl;
 								s->update(Arr,Rou,to,Class,Date);
 								s->display(Arr);
-								s->airline_member(Arr,username,Class,Form,to,Date,Rou); //airline function
+								cout<<"================"<<endl;
+								s->airline(Arr,username,Class,Form,to,Date,Rou); //airline function
 								s->ticket->saveticket();
 								s->ticket->sort();
 								s->ticket->showTicketMember();
@@ -895,7 +868,7 @@ int main(){
 									}
 									Round->head = Round->head->link;
 								}
-								cout << Round->head->cost << endl;
+							
 								s->ticket->calculate_member(cost,Round->head->cost);
 								s->ticket->remove();
 								Enter();
@@ -957,6 +930,7 @@ int main(){
 								cout<<"===== SEAT ====="<<endl;
 								s->update(arr,Rou,to,Class,Date);
 								s->display(arr);
+								cout<<"================"<<endl;
 								s->airline(arr,PassengerName,Class,Form,to,Date,Rou);
 								s->ticket->saveticket();
 								s->ticket->sort();
@@ -968,7 +942,7 @@ int main(){
 									}
 									Round->head = Round->head->link;
 								}
-								cout << Round->head->cost << endl;
+								
 								s->ticket->calculate(cost,Round->head->cost);
 								s->ticket->remove();
 								Enter();
@@ -1000,6 +974,8 @@ int main(){
 						cout <<"You can only reserve ticket 2 weeks in advance."<<endl;
 						cout<<"1.booking"<<endl;
 						cout<<"2.back"<<endl;
+						cout <<"==============================" << endl;
+						cout <<"Please Enter: ";
 						cin >> choice2;
 						if(choice2 == 1){
 							cout <<"1.booking" <<endl;
@@ -1112,6 +1088,7 @@ int main(){
 								cout<<"===== SEAT ====="<<endl;
 								s->update(Arr2,Rou,to,Class,Date);
 								s->display(Arr2);
+								cout<<"================"<<endl;
 								s->airline(Arr2,username,Class,Form,to,Date,Rou);
 								s->ticket->saveticket();
 								s->ticket->sort();
@@ -1123,7 +1100,7 @@ int main(){
 									}
 									Round->head = Round->head->link;
 								}
-								cout << Round->head->cost << endl;
+								
 								s->ticket->calculate_member(cost,Round->head->cost);
 								s->ticket->remove();
 								Enter();					
@@ -1251,6 +1228,7 @@ int main(){
 								cout<<"===== SEAT ====="<<endl;	
 								s->update(Arr3,Rou,to,Class,Date);
 								s->display(Arr3);
+								cout<<"================"<<endl;
 								s->airline(Arr3,PassengerName,Class,Form,to,Date,Rou);
 								s->ticket->saveticket();
 								s->ticket->sort();
@@ -1262,7 +1240,7 @@ int main(){
 									}
 									Round->head = Round->head->link;
 								}
-								cout << Round->head->cost << endl;
+							
 								s->ticket->calculate(cost,Round->head->cost);
 								s->ticket->remove();
 								Enter();
