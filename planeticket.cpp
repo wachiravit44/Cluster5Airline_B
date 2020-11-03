@@ -482,6 +482,7 @@ class Seat{
 		}
 		de = as->head->Time_to;
 		while(true){ 
+			
 			s=getData(); //get user input
 						//if user input is to stop the process
 			if(s[0]=='N') 
@@ -873,10 +874,14 @@ int main(){
 								}
 								ro:
 								Round->all_show(to);
+								cout<<"Please Choose Round : ";
 								cin >> Rou;
 								if(Round->check(Rou,to)!=true){
 									goto ro;
 								}
+								system("cls");
+								readfile("First_page");
+								cout<<"===== SEAT ====="<<endl;
 								s->update(Arr,Rou,to,Class,Date);
 								s->display(Arr);
 								s->airline_member(Arr,username,Class,Form,to,Date,Rou); //airline function
@@ -942,10 +947,14 @@ int main(){
 								}
 								roses:
 								Round->all_show(to);
+								cout<<"Please Choose Round : ";
 								cin >> Rou;
 								if(Round->check(Rou,to)!=true){
 									goto roses;
 								}
+								system("cls");
+								readfile("First_page");
+								cout<<"===== SEAT ====="<<endl;
 								s->update(arr,Rou,to,Class,Date);
 								s->display(arr);
 								s->airline(arr,PassengerName,Class,Form,to,Date,Rou);
@@ -1030,6 +1039,7 @@ int main(){
 								}
 								ros:
 								Round->all_show(to);
+								cout<<"Please Choose Round : ";
 								cin >> Rou;
 								if(Round->check(Rou,to)!=true){
 									goto ros;
@@ -1097,6 +1107,9 @@ int main(){
 									MO = "0"+MO;
 								}
 								Date =  d +"/" + MO +"/" + YYY ;
+								system("cls");
+								readfile("First_page");
+								cout<<"===== SEAT ====="<<endl;
 								s->update(Arr2,Rou,to,Class,Date);
 								s->display(Arr2);
 								s->airline(Arr2,username,Class,Form,to,Date,Rou);
@@ -1142,8 +1155,7 @@ int main(){
 								}else if(Class == "E"){
 									cost = 2000;
 								}
-								//cout << "Choose Seat position ";
-								//cin >> Seat;
+
 								char Arr3[7][5]; 
 								for(int i=0;i<7;i++){
 									//forst column is row number
@@ -1166,6 +1178,7 @@ int main(){
 								}
 								rose:
 								Round->all_show(to);
+								cout<<"Please Choose Round : ";
 								cin >> Rou;
 								if(Round->check(Rou,to)!=true){
 									goto rose;
@@ -1176,10 +1189,6 @@ int main(){
 									cout <<"You can only reserve ticket 2 weeks in advance."<<endl;
 									goto AD2;
 								}
-
-								//q->enqueue(PassengerName,Class,Class,Form,to,Date);
-								//q->sort();
-								//q->display(PassengerName);
 								d = Date.substr(0,2);
 								MO = Date.substr(3,2);
 								YYY = Date.substr(6,4);
@@ -1236,7 +1245,10 @@ int main(){
 								if(MO.length() == 1){
 									MO = "0"+MO;
 								}
-								Date =  d +"/" + MO +"/" + YYY ;			
+								Date =  d +"/" + MO +"/" + YYY ;
+								system("cls");
+								readfile("First_page");	
+								cout<<"===== SEAT ====="<<endl;	
 								s->update(Arr3,Rou,to,Class,Date);
 								s->display(Arr3);
 								s->airline(Arr3,PassengerName,Class,Form,to,Date,Rou);
@@ -1261,6 +1273,7 @@ int main(){
 			EXIT:cout <<"Exit"<<endl;		
 		}else if (menu == 3){
 				obj->Register();
+				goto Airplane;
 			}else if (menu == 4){
 				goto EXIT;
 			}
