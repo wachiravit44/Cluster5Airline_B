@@ -262,7 +262,37 @@ class TicketList{
 			}	
 	}
 	void sort(){
-		
+			NodeTicket *temp = head;
+			NodeTicket *i,*j;
+			string name,seat,to,day,go,TO;
+			i = head; 
+			j = i;
+			for(i= head;i!=NULL;i=i->link){
+				for(j=i;j!=NULL;j=j->link){
+					if(i->Seat > j->Seat){
+					name = i->PassengerName;
+					seat = i->Seat;
+					to = i->To;
+					day = i->Date;
+					go = i->Time;
+					TO = i->out;
+
+					i->PassengerName = j->PassengerName;
+					i->Seat = j->Seat;
+					i->To = j->To;
+					i->Date = j->Date;
+					i->Time = j->Time;
+					i->out = j->out;
+					
+					j->PassengerName = name;
+					j->Seat = seat;
+					j->To = to;
+					j->Date = day;
+					j->Time = go;
+					j->out = TO;
+					}	
+				}
+			}
 	}
 	void showTicket(){
 		NodeTicket *temp = head;
@@ -672,7 +702,7 @@ void clear(){
 		fstream DE;
 		fstream myfile("ticket.txt",ios::in);
 			while(getline(myfile,filein)){
-				cout << "AS" << endl;
+				//cout << "AS" << endl;
 				name = filein.substr(0,filein.find(','));
 					filein.erase(0,filein.find(',')+1);
 				Class = filein.substr(0,filein.find(','));
@@ -691,7 +721,7 @@ void clear(){
 				temp->Add_ticket(name,Class,s,de,ter,date,out,to);
             }
 			myfile.close();
-		cout << "asd" <<endl;
+		//cout << "asd" <<endl;
 	
 	string days,mon,years;
 	    time_t now = time(0);
@@ -741,7 +771,7 @@ int main(){
 	int advance;int MMM;
 	int DD;	
 	int menu,YN,yn,choice,choice1,choice2;
-	
+	Airplane:system("cls");
     time_t now = time(0);
     tm *ltm = localtime(&now);
     cout << "Year:" << 1900 + ltm->tm_year <<" ";
@@ -771,7 +801,7 @@ int main(){
 			M = "0"+M;
 		}
 		string Date = Day+"/"+M+"/"+Year;										
-	Airplane:
+	
 	readfile("First_page");
 	cout <<"======Airplane ticket booking======"<<endl;
 	cout <<"1.Book ticket"<<endl;
@@ -801,8 +831,8 @@ int main(){
 			    booking:system("cls");
 						readfile("First_page");
 						cout<<"====== Airplane Ticket ======="<<endl;
-						cout<<"1.booking"<<endl;
-						cout<<"2.Exit"<<endl;
+						cout<<"1.Booking"<<endl;
+						cout<<"2.Back"<<endl;
 						cin >> choice;
 						if(choice == 1){
 								cout <<"1.booking" <<endl;
@@ -851,6 +881,7 @@ int main(){
 								s->display(Arr);
 								s->airline_member(Arr,username,Class,Form,to,Date,Rou); //airline function
 								s->ticket->saveticket();
+								s->ticket->sort();
 								s->ticket->showTicketMember();
 								Round->head = Round->F;
 								while(Round->head != NULL){
@@ -865,7 +896,7 @@ int main(){
 								Enter();
 							goto booking;
 						}else if(choice == 2){
-							goto EXIT;
+							goto Airplane;
 						}
 								
 				}else if(obj->Checkpass(username,password) != true){	
@@ -919,6 +950,7 @@ int main(){
 								s->display(arr);
 								s->airline(arr,PassengerName,Class,Form,to,Date,Rou);
 								s->ticket->saveticket();
+								s->ticket->sort();
 								s->ticket->showTicket();
 								Round->head = Round->F;
 								while(Round->head != NULL){
@@ -958,7 +990,7 @@ int main(){
 				booking2:cout<<"====== Airplane Ticket ======="<<endl;
 						cout <<"You can only reserve ticket 2 weeks in advance."<<endl;
 						cout<<"1.booking"<<endl;
-						cout<<"2.Exit"<<endl;
+						cout<<"2.back"<<endl;
 						cin >> choice2;
 						if(choice2 == 1){
 							cout <<"1.booking" <<endl;
@@ -1069,6 +1101,7 @@ int main(){
 								s->display(Arr2);
 								s->airline(Arr2,username,Class,Form,to,Date,Rou);
 								s->ticket->saveticket();
+								s->ticket->sort();
 								s->ticket->showTicketMember();	
 								Round->head = Round->F;
 								while(Round->head != NULL){
@@ -1083,7 +1116,7 @@ int main(){
 								Enter();					
 								goto booking;
 						}else if(choice2 == 2){
-							goto EXIT;
+							goto Airplane;
 						}
 								
 					}else if(obj->Checkpass(username,password) != true){
@@ -1208,6 +1241,7 @@ int main(){
 								s->display(Arr3);
 								s->airline(Arr3,PassengerName,Class,Form,to,Date,Rou);
 								s->ticket->saveticket();
+								s->ticket->sort();
 								s->ticket->showTicket();
 								Round->head = Round->F;
 								while(Round->head != NULL){
