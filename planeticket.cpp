@@ -30,6 +30,7 @@ class round{
 	public:
 		node *head;
 		node *tail;
+		node *F;
 		round(){
 			head = NULL;
 			tail = NULL;
@@ -63,6 +64,7 @@ class round{
 			if(head == NULL){
 				head = Round;
 				tail = Round;
+				F = head;
 			}else{
 				tail->link = Round;
 				Round->plink = tail;
@@ -280,6 +282,31 @@ class TicketList{
 				cout <<"========================================================"<<endl;
 				temp = temp->link;
 		}
+	}
+	void calculate(int cost_class,int Rou){
+		NodeTicket *temp = head;
+		double sum = 0;
+		while(temp != NULL){
+			sum = sum + cost_class + Rou;
+			temp = temp->link;
+		}
+		cout <<"-----------------------------------------"<<endl;
+		cout <<"Total Cost: " << sum <<endl;
+		cout <<"-----------------------------------------"<<endl;
+		//return sum;
+	}
+	void calculate_member(int cost_class,int Rou){
+		NodeTicket *temp = head;
+		double sum = 0;
+		while(temp != NULL){
+			sum = sum + cost_class + Rou;
+			temp = temp->link;
+		}
+		sum = sum-(sum*5/100);
+		cout <<"-----------------------------------------"<<endl;
+		cout <<"Total Cost: " << sum <<endl;
+		cout <<"-----------------------------------------"<<endl;
+		//return sum;
 	}
 };
 class Seat{
@@ -627,8 +654,14 @@ class Booking{
             
         }
 };
-
-
+void Enter(){
+  char enter = ' ';
+  cout << "Please Enter to Continue . . . ";
+  while((enter = getch()) != '\r'){  
+    cin >> enter;
+  }
+  system("cls");
+}
 
 int main(){
 	memberList *obj = new memberList;
@@ -648,7 +681,7 @@ int main(){
 	int advance;int MMM;
 	int DD;	
 	int menu,YN,yn,choice,choice1,choice2;
-	readfile("First_page");
+	
     time_t now = time(0);
     tm *ltm = localtime(&now);
     cout << "Year:" << 1900 + ltm->tm_year <<" ";
@@ -678,7 +711,9 @@ int main(){
 			M = "0"+M;
 		}
 		string Date = Day+"/"+M+"/"+Year;										
-	Airplane:cout <<"======Airplane ticket booking======"<<endl;
+	Airplane:
+	readfile("First_page");
+	cout <<"======Airplane ticket booking======"<<endl;
 	cout <<"1.Book ticket"<<endl;
 	cout <<"2.Book ticket in advance"<<endl;
 	cout <<"3.register"<<endl;
@@ -692,7 +727,10 @@ int main(){
 			cout <<"Enter=> ";
 			cin >> yn;
 				if (yn == 1){
-					login:cout << "==== Airplane ticket booking ====" << endl;
+					login:
+					system("cls");
+					readfile("First_page");
+					cout << "==== Airplane ticket booking ====" << endl;
 					cout << "Enter Username: ";
 					cin>> username;
 					cout << "Enter Password: "; 
@@ -700,7 +738,9 @@ int main(){
 					//cin>>password;
 					cout <<endl <<"==================" << endl;
 					if(obj->Checkpass(username,password)==true){
-			    booking:cout<<"====== Airplane Ticket ======="<<endl;
+			    booking:system("cls");
+						readfile("First_page");
+						cout<<"====== Airplane Ticket ======="<<endl;
 						cout<<"1.booking"<<endl;
 						cout<<"2.Exit"<<endl;
 						cin >> choice;
@@ -729,14 +769,9 @@ int main(){
 										//to represent sit number A,B,C,D respectively
 										Arr[i][j]='A'+j-1; 
 									}
-								}
-
-								//string S = s->getSeat();
-								//cout << "Choose Seat position ";
-								//cout<<"enter valid seat no to check(like 1B) or N to end: ";
-								//cin >> Seat;		
-								
+								}								
 								tra:
+								Round->head = Round->F;
 								Round->all_show();						
 								cout <<"Travel form :";
 								cin >> Form;																
@@ -757,10 +792,17 @@ int main(){
 								s->airline_member(Arr,username,Class,Form,to,Date,Rou); //airline function
 								s->ticket->saveticket();
 								s->ticket->showTicketMember();
+								Round->head = Round->F;
+								while(Round->head != NULL){
+									if(Round->head->Time_out == Rou && Round->head->Terminal == to){
+										break;
+									}
+									Round->head = Round->head->link;
+								}
+								cout << Round->head->cost << endl;
+								s->ticket->calculate_member(cost,Round->head->cost);
 								s->ticket->remove();
-								//cout <<"Date of ticket purchase :";
-								//cin >> Date;
-								//cout << s->getSeat() <<endl;
+								Enter();
 							goto booking;
 						}else if(choice == 2){
 							goto EXIT;
@@ -771,7 +813,8 @@ int main(){
 						goto Airplane;
 					}
 				}else if (yn == 2){
-								cout <<"2.booking no login"<<endl;
+								system("cls");
+								readfile("First_page");
 								cout <<"input your name :";
 								cin >> PassengerName;
 				    ChooseClass2:cout <<"Choose Seat Class F,B,E:";
@@ -795,28 +838,39 @@ int main(){
 										arr[i][j]='A'+j-1; 
 									}
 								}
-								
-								Round->all_show();						
+								tra_se:
+								Round->head = Round->F;
+								Round->all_show();
 								cout <<"Travel form :";
 								cin >> Form;																
 								cout <<"Travel to? :";
 								cin.ignore();
 								getline(cin,to);
+								if(Round->check(to)!=true){
+									goto tra_se;
+								}
+								roses:
 								Round->all_show(to);
 								cin >> Rou;
+								if(Round->check(Rou,to)!=true){
+									goto roses;
+								}
 								s->update(arr,Rou,to,Class,Date);
 								s->display(arr);
 								s->airline(arr,PassengerName,Class,Form,to,Date,Rou);
-								//string S2 = s->getData();
-								//cout << "Choose Seat position :";
-								//cin >> Seat;
-								//ticket = s->ticket;
-								//ticket->Add_ticket(PassengerName,Class,s->getSeat(),Form,to,Date);
-								//ticket->saveticket();
-								//ticket->showTicket();
 								s->ticket->saveticket();
 								s->ticket->showTicket();
+								Round->head = Round->F;
+								while(Round->head != NULL){
+									if(Round->head->Time_out == Rou && Round->head->Terminal == to){
+										break;
+									}
+									Round->head = Round->head->link;
+								}
+								cout << Round->head->cost << endl;
+								s->ticket->calculate(cost,Round->head->cost);
 								s->ticket->remove();
+								Enter();
 							goto Airplane;
 								
 				}
@@ -827,7 +881,9 @@ int main(){
 			cout <<"Enter=> ";
 			cin >> YN;
 			if (YN == 1){
-		 login2:cout << "==== Airplane ticket booking ====" << endl;
+		 login2:system("cls");
+				readfile("First_page");
+		 		cout << "==== Airplane ticket booking ====" << endl;
 				cout << "Enter Username: ";
 				cin>>username;
 				cout << "Enter Password: "; 	
@@ -869,16 +925,23 @@ int main(){
 										Arr2[i][j]='A'+j-1; 
 									}
 								}
-								
-								Round->all_show();						
+								tras:
+								Round->head = Round->F;
+								Round->all_show();
 								cout <<"Travel form :";
 								cin >> Form;																
 								cout <<"Travel to? :";
 								cin.ignore();
 								getline(cin,to);
+								if(Round->check(to)!=true){
+									goto tras;
+								}
+								ros:
 								Round->all_show(to);
 								cin >> Rou;
-								
+								if(Round->check(Rou,to)!=true){
+									goto ros;
+								}
 								AD:cout <<"Date of ticket purchase advance:";
 								cin >> ad;
 								if(ad > 14){
@@ -947,7 +1010,17 @@ int main(){
 								s->airline(Arr2,username,Class,Form,to,Date,Rou);
 								s->ticket->saveticket();
 								s->ticket->showTicketMember();	
-								s->ticket->remove();					
+								Round->head = Round->F;
+								while(Round->head != NULL){
+									if(Round->head->Time_out == Rou && Round->head->Terminal == to){
+										break;
+									}
+									Round->head = Round->head->link;
+								}
+								cout << Round->head->cost << endl;
+								s->ticket->calculate_member(cost,Round->head->cost);
+								s->ticket->remove();
+								Enter();					
 								goto booking;
 						}else if(choice2 == 2){
 							goto EXIT;
@@ -958,8 +1031,10 @@ int main(){
 						goto login2;
 					}
 			}else if (YN == 2) {
-								bookingAdnologin:cout <<"You can only reserve ticket 2 weeks in advance."<<endl;
-								cout <<"2.booking no login"<<endl;
+								bookingAdnologin:
+								system("cls");
+								readfile("First_page");
+								cout <<"You can only reserve ticket 2 weeks in advance."<<endl;
 								cout <<"input your name :";
 								cin >> PassengerName;
 				    ChooseClass4:cout <<"Choose Seat Class F,B,E:";
@@ -985,16 +1060,23 @@ int main(){
 										Arr3[i][j]='A'+j-1; 
 									}
 								}
-								
-								Round->all_show();						
+								tra_s:
+								Round->head = Round->F;
+								Round->all_show();
 								cout <<"Travel form :";
 								cin >> Form;																
 								cout <<"Travel to? :";
 								cin.ignore();
 								getline(cin,to);
+								if(Round->check(to)!=true){
+									goto tra_s;
+								}
+								rose:
 								Round->all_show(to);
 								cin >> Rou;
-								
+								if(Round->check(Rou,to)!=true){
+									goto rose;
+								}
 								AD2:cout <<"Date of ticket purchase advance:";
 								cin >> ad;
 								if(ad > 14){
@@ -1067,8 +1149,18 @@ int main(){
 								s->airline(Arr3,PassengerName,Class,Form,to,Date,Rou);
 								s->ticket->saveticket();
 								s->ticket->showTicket();
-								s->ticket->remove();		
-								goto bookingAdnologin;
+								Round->head = Round->F;
+								while(Round->head != NULL){
+									if(Round->head->Time_out == Rou && Round->head->Terminal == to){
+										break;
+									}
+									Round->head = Round->head->link;
+								}
+								cout << Round->head->cost << endl;
+								s->ticket->calculate(cost,Round->head->cost);
+								s->ticket->remove();
+								Enter();
+								//goto bookingAdnologin;
 						}
 								goto Airplane;
 			
